@@ -2,10 +2,7 @@
 [Bloxd.io](https://bloxd.io)のゲーム内コードエディターをブラウザ上で再現した、高機能コードエディターです。\
 [JavaScript モジュール](https://esm.sh)を活用し、実際の開発環境に近い操作感を提供します。\
 
-<img src="./image/Screenshot_01.png" alt="Code Editor" width="80%">
-
-- Table of Content
-{:toc}
+<img src="./image/Screenshot_01.png" alt="Code Editor" width="60%">
 
 # 機能
 - ハイライト機能
