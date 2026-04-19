@@ -4,7 +4,7 @@
 
 \[[日本語](README_ja.md) | [English](README.md)\]
 
-<img src="./image/Screenshot_01.png" alt="Code Editor" width="60%">
+<img src="./image/Screenshot_02.png" alt="Code Editor" width="60%">
 
 # 機能
 - ハイライト機能
@@ -28,7 +28,7 @@
 |制御構文・宣言|#c678dd|`if`, `else`, `function`, `let`|
 |関数名|#61afef|`print()`, `addEvent()`|
 
-※自分でもよくわかっていないので何かあったらIssues(問題)のほうにお願いします。
+※自分でもよくわかってないので何かあったらIssues(問題)のほうにお願いします。
 
 また、括弧などにカーソルを合わせると背景色がつき、もう片方の括弧にも背景色がつきます。これにより、複雑なコードでもどこで閉じているのかがわかるようになります。
 

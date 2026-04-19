@@ -4,7 +4,7 @@ Built using [JavaScript modules (esm.sh)](https://esm.sh), it provides a develop
 
 \[[日本語](README_ja.md) | [English](README.md)\]
 
-<img src="./image/Screenshot_01.png" alt="Code Editor" width="80%">
+<img src="./image/Screenshot_02.png" alt="Code Editor" width="80%">
 
 # Features
 - Syntax Highlighting
