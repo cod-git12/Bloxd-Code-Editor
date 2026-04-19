@@ -146,6 +146,19 @@ Title: Local Storage Re-fix
 
 Fixed an issue where local storage features were not functioning correctly due to improper save timing within the code, preventing data from being saved and loaded properly.
 
+## ver. 1.2.3
+Date: `2026/4/20`
+Title: Updates
+
+Made several changes to the code.
+- Fixed an issue where the custom font was not being applied within the editor.
+- Added version notation.
+
+Additionally, implemented a Preview Version. This allows you to try out features currently under development ahead of their official release.  
+*Note: As this is a development version, bugs may occur.
+
+The Preview Version is available [here](https://cod-git12.github.io/Bloxd-Code-Editor/preview.html).
+
 # 日本語
 ※日付はすべて日本時間（JST）です
 
@@ -289,3 +302,16 @@ githubにて公開しました。\
 タイトル: ローカルストレージの再修正
 
 コード内での保存のタイミングが悪く、正しく保存・読み込みされていなかったため、ローカルストレージ機能が使用できなくなっていた問題を修正しました。
+
+## ver. 1.2.3
+日付: `2026/4/20`\
+タイトル: 変更
+
+コードに変更を加えました。
+- フォントがエディター内に適用されていなかった問題の修正
+- バージョン表記を追加
+
+さらに、プレビュー版を実装しました。プレビュー版は、現在開発中の機能を先に見ることができる機能です。\
+※開発中のため、バグが発生していることがあります。
+
+プレビュー版は[こちら](https://cod-git12.github.io/Bloxd-Code-Editor/preview.html)で見ることができます。

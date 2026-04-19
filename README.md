@@ -4,7 +4,7 @@ Built using [JavaScript modules (esm.sh)](https://esm.sh), it provides a develop
 
 \[[日本語](README_ja.md) | [English](README.md)\]
 
-<img src="./image/Screenshot_02.png" alt="Code Editor" width="80%">
+<img src="./image/Screenshot_04.png" alt="Code Editor" width="80%">
 
 # Features
 - Syntax Highlighting
@@ -96,3 +96,10 @@ Clicking the settings icon in the bottom right corner opens a modal window where
 This feature displays a minimap of your code.
 A minimap provides a scaled-down overview of the entire script on the right side of the screen, helping you visualize the overall structure and quickly navigate to specific sections.
 You can toggle its visibility using the Minimap switch in the Modal Settings.
+
+# Preview Version
+A "Preview Version" of the editor is available, featuring experimental functions currently under development (created on 2026/4/20).  
+This version is updated frequently, allowing users to test new features ahead of their official release. Please be aware that you may encounter bugs or instability while using this version.  
+If the version numbers of the Preview and Main versions are identical, it indicates that there are currently no new experimental features in development.  
+
+You can access the Preview Version [here](https://cod-git12.github.io/Bloxd-Code-Editor/preview.html).
