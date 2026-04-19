@@ -886,8 +886,8 @@
     let currentLang = 'javascript';
     let currentMode = 'codeblock';
     let autosaveEnabled = true;
-    let codeBlockDoc = `api.log("hello, world!")`;
-    let worldCodeDoc = `/*
+    let codeBlockDoc = localStorage.getItem('bloxd_ce_codeblock') ?? `api.log("hello, world!")`;
+    let worldCodeDoc = localStorage.getItem('bloxd_ce_worldcode') ?? `/*
 	tick onClose onPlayerJoin onPlayerLeave onPlayerJump onRespawnRequest
 	playerCommand onPlayerChat onPlayerChangeBlock onPlayerDropItem
 	onPlayerPickedUpItem onPlayerSelectInventorySlot onBlockStand
@@ -972,10 +972,7 @@ api.log("World code callbacks go here!")`;
           }
           if (update.docChanged) {
             drawMinimap();
-            if (autosaveEnabled) {
-              const key = currentMode === 'worldcode' ? 'bloxd_ce_worldcode' : 'bloxd_ce_codeblock';
-              localStorage.setItem(key, update.state.doc.toString());
-            }
+            if (autosaveEnabled) saveCurrentToStorage();
           } else if (update.selectionSet) {
             updateMinimapViewport();
           }
@@ -996,7 +993,6 @@ api.log("World code callbacks go here!")`;
       parent: document.getElementById('editor-container'),
     });
 
-    // ローディング完了 → フェードアウト & ミニマップ初期化
     requestAnimationFrame(() => {
       const loader = document.getElementById('editor-loading');
       loader.classList.add('hidden');
@@ -1006,14 +1002,18 @@ api.log("World code callbacks go here!")`;
 
     updateStatus(view.state);
 
+    window.addEventListener('beforeunload', () => {
+      if (!autosaveEnabled) return;
+      localStorage.setItem('bloxd_ce_codeblock', codeBlockDoc);
+      localStorage.setItem('bloxd_ce_worldcode', worldCodeDoc);
+      const key = currentMode === 'worldcode' ? 'bloxd_ce_worldcode' : 'bloxd_ce_codeblock';
+      localStorage.setItem(key, view.state.doc.toString());
+    });
 
-    // ══════════════════════════════════════════════════════════════
-    // MINIMAP
-    // ══════════════════════════════════════════════════════════════
-    const MM_W = 110;   // canvas pixel width
-    const MM_LINE_H = 2;     // px per line
-    const MM_CHAR_W = 1.4;   // px per character
-    const MM_PAD = 4;     // left padding
+    const MM_W = 110;
+    const MM_LINE_H = 2;
+    const MM_CHAR_W = 1.4;
+    const MM_PAD = 4;
 
     let mmDragging = false;
     let mmEnabled = false;
@@ -1023,13 +1023,11 @@ api.log("World code callbacks go here!")`;
       const canvas = document.getElementById('minimap-canvas');
       const toggle = document.getElementById('minimap-toggle-btn');
 
-      // スクロール連動
       view.scrollDOM.addEventListener('scroll', () => {
         syncMinimapScroll();
         updateMinimapViewport();
       });
 
-      // クリック・ドラッグでスクロール
       wrap.addEventListener('mousedown', (e) => {
         mmDragging = true;
         minimapSeek(e.offsetY, wrap, canvas);
@@ -1042,11 +1040,7 @@ api.log("World code callbacks go here!")`;
       });
       document.addEventListener('mouseup', () => { mmDragging = false; });
 
-      // 初期状態: オフ
       wrap.classList.add('mm-hidden');
-
-      // トグルはモーダル経由なのでここでは何もしない
-
 
       drawMinimap();
     }
@@ -1107,15 +1101,14 @@ api.log("World code callbacks go here!")`;
       vbox.style.height = `${Math.max(4, hFrac * totalH)}px`;
     }
 
-    // シンプルなトークンカラーリング
     function tokenizeForMinimap(text) {
       const colors = new Array(text.length).fill('#5a6380');
       const rules = [
-        [/\/\/.*$/g, '#4a6a4a'],  // comment
-        [/"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`/g, '#9a7a3a'],  // string
+        [/\/\/.*$/g, '#4a6a4a'],
+        [/"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`/g, '#9a7a3a'],
         [/\b(const|let|var|function|return|if|else|for|while|new|this|true|false|null|undefined|async|await|class|import|export|from|of|in|typeof|instanceof)\b/g, '#4466bb'],  // keyword
-        [/\b\d+\.?\d*\b/g, '#aa6633'],  // number
-        [/\bapi\b/g, '#9966cc'],  // api
+        [/\b\d+\.?\d*\b/g, '#aa6633'],
+        [/\bapi\b/g, '#9966cc'],
       ];
       for (const [re, color] of rules) {
         re.lastIndex = 0;
@@ -1163,10 +1156,6 @@ api.log("World code callbacks go here!")`;
       updateMinimapViewport();
     }
 
-
-    // ══════════════════════════════════════════════════════════════
-    // SETTINGS MODAL
-    // ══════════════════════════════════════════════════════════════
     const settingsOverlay = document.getElementById('settings-overlay');
     const swMinimap = document.getElementById('sw-minimap');
     const swAutosave = document.getElementById('sw-autosave');
@@ -1181,7 +1170,6 @@ api.log("World code callbacks go here!")`;
       if (e.target === settingsOverlay) settingsOverlay.classList.remove('open');
     });
 
-    // Minimap トグル
     swMinimap.checked = mmEnabled;
     swMinimap.addEventListener('change', () => {
       mmEnabled = swMinimap.checked;
@@ -1190,7 +1178,6 @@ api.log("World code callbacks go here!")`;
       if (mmEnabled) drawMinimap();
     });
 
-    // Auto-save トグル
     swAutosave.addEventListener('change', () => {
       autosaveEnabled = swAutosave.checked;
       if (!autosaveEnabled) {
@@ -1202,7 +1189,6 @@ api.log("World code callbacks go here!")`;
       }
     });
 
-    // Save .txt (旧 btn-submit と同機能)
     document.getElementById('btn-save-file').addEventListener('click', () => {
       const code = view.state.doc.toString();
       const blob = new Blob([code], { type: 'text/plain' });
@@ -1215,7 +1201,6 @@ api.log("World code callbacks go here!")`;
       showEditorToast('💾 Saved!');
     });
 
-    // Load .txt
     const fileInput = document.getElementById('file-input');
     document.getElementById('btn-load-file').addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', (e) => {
@@ -1247,6 +1232,7 @@ api.log("World code callbacks go here!")`;
     }
 
     document.getElementById('lang-select').addEventListener('change', (e) => {
+      saveCurrentToStorage();
       currentLang = e.target.value;
       statusLang.textContent = languageLabels[currentLang];
       const doc = view.state.doc.toString();
@@ -1322,9 +1308,21 @@ api.log("World code callbacks go here!")`;
       }
     });
 
+    function saveCurrentToStorage() {
+      if (!autosaveEnabled) return;
+      const key = currentMode === 'worldcode' ? 'bloxd_ce_worldcode' : 'bloxd_ce_codeblock';
+      localStorage.setItem(key, view.state.doc.toString());
+    }
+
     function setEditorMode(mode) {
-      if (currentMode === 'codeblock') codeBlockDoc = view.state.doc.toString();
-      else worldCodeDoc = view.state.doc.toString();
+      const currentDoc = view.state.doc.toString();
+      if (currentMode === 'codeblock') {
+        codeBlockDoc = currentDoc;
+        if (autosaveEnabled) localStorage.setItem('bloxd_ce_codeblock', currentDoc);
+      } else {
+        worldCodeDoc = currentDoc;
+        if (autosaveEnabled) localStorage.setItem('bloxd_ce_worldcode', currentDoc);
+      }
       currentMode = mode;
       const header = document.querySelector('.CodeEditMessage');
       const worldBtn = document.getElementById('btn-world').querySelector('.ButtonBody');
@@ -1579,7 +1577,6 @@ api.log("World code callbacks go here!")`;
         html += `<div class="sig-deprecated" style="white-space:normal">⚠ deprecated</div>`;
       }
 
-      // 引数を改行して表示
       if (sig.params.length === 0) {
         html +=
           `<span class="sig-method">${methodName}</span>` +
@@ -1606,7 +1603,6 @@ api.log("World code callbacks go here!")`;
           `<span class="sig-returns">${sig.returns}</span>`;
       }
 
-      // アクティブ引数の説明
       const activeParam = sig.params[paramIdx];
       if (activeParam && activeParam.desc) {
         html += `\n<span class="sig-param-hint" style="white-space:normal;display:block;margin-top:4px;">` +

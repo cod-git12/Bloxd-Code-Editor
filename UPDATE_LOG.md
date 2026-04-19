@@ -140,6 +140,12 @@ Title: Local Storage Fix
 
 Fixed an issue where `autosaveEnabled` was not defined, which caused local storage features and other related functions to become unavailable.
 
+## ver. 1.2.2
+Date: `2026/4/19`
+Title: Local Storage Re-fix
+
+Fixed an issue where local storage features were not functioning correctly due to improper save timing within the code, preventing data from being saved and loaded properly.
+
 # 日本語
 ※日付はすべて日本時間（JST）です
 
@@ -277,3 +283,9 @@ githubにて公開しました。\
 タイトル: ローカルストレージの修正
 
 コード内で`autosaveEnabled`が定義されていなく、ローカルストレージ機能などが使用できなくなっていた問題を修正しました。
+
+## ver. 1.2.2
+日付: `2026/4/19`\
+タイトル: ローカルストレージの再修正
+
+コード内での保存のタイミングが悪く、正しく保存・読み込みされていなかったため、ローカルストレージ機能が使用できなくなっていた問題を修正しました。
