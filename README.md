@@ -83,3 +83,8 @@ When set to `Hide Tooltips`, suggestions will appear; when set to `Show Tooltips
 Toggles between **World Code** and **Code Block** modes.  
 The main difference is the availability of Callbacks. In this editor, this toggle only affects the auto-completion suggestions.  
 *Note: In the actual game, Code Blocks trigger on click/interaction, while World Code runs as part of the world logic.* The current mode is displayed in the status bar at the bottom of the editor.
+
+## Minimap Feature
+This feature displays a minimap of your code.  
+A minimap provides a scaled-down overview of the entire script on the right side of the screen, helping you visualize the overall structure and quickly navigate to specific sections.  
+You can toggle its visibility by clicking the ⊟ Map / ⊞ Map button.

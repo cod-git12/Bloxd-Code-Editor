@@ -6,9 +6,9 @@
 *All dates and times are in Japan Standard Time (JST).
 
 ## ver. 0.1.0
-Date: `2026/4/14`
-Title: Development Started
-Started development as `bloxd codeeditor`.
+Date: `2026/4/14`\
+Title: Development Started\
+Started development as `bloxd codeeditor`.\
 Implemented core editor features such as syntax highlighting.
 
 Editor Features
@@ -25,7 +25,7 @@ Toolbar
 - JSON formatting
 
 ## ver. 0.2.0
-Date: `2026/4/14`
+Date: `2026/4/14`\
 Title: UI Refinement
 
 Design Changes
@@ -36,7 +36,7 @@ Design Changes
 - Status Bar: Displays line/column, language, and character count at the bottom
 
 ## ver. 0.3.0
-Date: `2026/4/15`
+Date: `2026/4/15`\
 Title: API Completion
 
 - Typing `api.` now displays all methods as candidates
@@ -49,7 +49,7 @@ Title: API Completion
 - JS keywords (`const`, `async`, `await`, `for`, etc.) added to completion
 
 ## ver. 0.4.0
-Date: `2026/4/16`
+Date: `2026/4/16`\
 Title: API Completion Arguments and Descriptions
 
 - Signature Help Popup (`#sig-popup`)
@@ -66,7 +66,7 @@ Title: API Completion Arguments and Descriptions
   - Includes typed signatures, descriptions for each argument, and deprecated warnings
 
 ## ver. 0.5.0
-Date: `2026/4/16`
+Date: `2026/4/16`\
 Title: Multiple Fixes and Additions
 
 - JavaScript Dropdown Position — Removed `position: absolute` to place it within the flow. No longer overlaps with Submit Code.
@@ -78,7 +78,7 @@ Title: Multiple Fixes and Additions
 - Callbacks restricted to World Code — `onPlayerJoin` and others now only appear in the completion list while in World Code mode.
 
 ## ver. 0.6.0
-Date: `2026/4/17`
+Date: `2026/4/17`\
 Title: API Completion Formatting
 
 ```
@@ -96,25 +96,39 @@ attributes?: ItemAttributes
 - Method description displayed below as standard text
 
 ### ver. 0.6.1
-Date: `2026/4/17`
+Date: `2026/4/17`\
 Title: API Completion Formatting Fix
 
 - Updated `renderSigPopup` to output with newlines and indentation for each argument
 
 ## ver. 1.0.0
-Date: `2026/4/18`
+Date: `2026/4/18`\
 Title: Release
 
-Released on GitHub.
+Released on GitHub.\
 [Try Bloxd Code Editor](https://cod-git12.github.io/Bloxd-Code-Editor)
+
+## ver. 1.1.0
+Date: `2026/4/19`\
+Title: Minimap Addition and Functional Fixes/Additions
+
+- Added a loading animation.
+- Matched the font to the official Bloxd font style.
+- Fixed an issue where the triangle icon in the language selection dropdown was isolated on the right side.
+- Added a Minimap feature.
+  - Display — A 110px wide minimap on the right edge of the editor. Displays code with syntax coloring (keywords in blue, strings in orange, comments in green, api in purple, etc.)
+  - Scroll Synchronization — A blue viewport box on the minimap moves in sync with the editor's scroll position.
+  - Jump via Click/Drag — Clicking or dragging the minimap scrolls the editor to the corresponding location.
+  - Toggle — Click the ⊟ Map icon at the right end of the status bar to hide it (changes to ⊞ Map), and click again to show it.
+  - Auto-update on Code Changes — The minimap redraws automatically as you type.
 
 # 日本語
 ※日付はすべて日本時間（JST）です
 
 ## ver. 0.1.0
-日付: `2026/4/14`
-タイトル: 作成開始
-`bloxd codeeditor`として作成を開始。
+日付: `2026/4/14`\
+タイトル: 作成開始\
+`bloxd codeeditor`として作成を開始。\
 ハイライトなどの主なエディター機能を搭載しました。
 
 **エディター機能**
@@ -131,8 +145,8 @@ Released on GitHub.
 - JSONフォーマット整形
 
 ## ver. 0.2.0
-日付: `2026/4/14`
-タイトル: 外見の整形
+日付: `2026/4/14`\
+タイトル: 外見の整形\
 
 **デザインの変更**
 - 背景: 指定のピクセルパターン + brightness(.6) のマイクラ風背景
@@ -142,7 +156,7 @@ Released on GitHub.
 - ステータスバー: 下部に行/列・言語・文字数を表示
 
 ## ver. 0.3.0
-日付: `2026/4/15`
+日付: `2026/4/15`\
 タイトル: apiの補完
 
 - `api.` と打つと メソッド全部が候補として出るように
@@ -155,7 +169,7 @@ Released on GitHub.
 - JSキーワード（`const`, `async`, `await`, `for` など）も補完
 
 ## ver. 0.4.0
-日付: `2026/4/16`
+日付: `2026/4/16`\
 タイトル: apiの補完の引数・説明
 
 - **シグネチャヘルプポップアップ** (`#sig-popup`)
@@ -172,7 +186,7 @@ Released on GitHub.
   - 型付きシグネチャ・各引数の説明・deprecated警告
 
 ## ver. 0.5.0
-日付: `2026/4/16`
+日付: `2026/4/16`\
 タイトル: 複数の機能を修正・追加
 
 - **JavaScriptドロップダウンの位置** — `position: absolute` を外してフロー内に配置。Submit Codeと重ならなくなりました。
@@ -184,7 +198,7 @@ Released on GitHub.
 - **コールバック補完はWorld Codeのみ** — `onPlayerJoin` などは World Code モードでのみ候補に出ます。
 
 ## ver. 0.6.0
-日付: `2026/4/17`
+日付: `2026/4/17`\
 タイトル: apiの補完の整形
 ```
 giveItem(
@@ -202,14 +216,28 @@ giveItem(
 - メソッド説明は下部に通常テキストで表示
 
 ### ver. 0.6.1
-日付: `2026/4/17`
+日付: `2026/4/17`\
 タイトル: apiの補完の整形の修正
 
 - `renderSigPopup` を引数ごとに改行＋インデントして出力するようにした
 
 ## ver. 1.0.0
-日付: `2026/4/18`
+日付: `2026/4/18`\
 タイトル: 公開
 
-githubにて公開しました。
+githubにて公開しました。\
 [Bloxd Code Editor を使ってみる](https://cod-git12.github.io/Bloxd-Code-Editor)
+
+## ver. 1.1.0
+日付: `2026/4/19`\
+タイトル: ミニマップの追加、機能の修正・追加
+
+- ローディングアニメーションを追加しました。
+- フォントをBloxdのフォントに揃えました。
+- 言語選択プルダウンの三角のマークが右側に孤立していた問題を修正しました。
+- ミニマップを追加しました。
+  - 表示 — エディター右端に110px幅のミニマップ。コードがカラー表示されます（キーワード青、文字列オレンジ、コメント緑、api 紫など）
+  - スクロール連動 — エディターのスクロールに合わせてミニマップの青い枠（ビューポート）が動きます
+  - クリック/ドラッグでジャンプ — ミニマップをクリック・ドラッグすると対応箇所にスクロール
+  - トグル — ステータスバー右端の ⊟ Map をクリックで非表示（⊞ Map に変わる）、もう一度で再表示
+  - コード変更時に自動更新 — タイプするたびにミニマップが再描画されます

@@ -36,7 +36,7 @@
       height: 100vh;
       height: 100dvh;
       overflow: hidden;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Verdana", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Verdana", "Candara", "Roboto", "Oxygen", "Ubuntu", "Trebuchet MS", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -111,9 +111,18 @@
       overflow: hidden;
     }
 
+    #editor-row {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+      min-height: 0;
+    }
+
     #editor-container {
       flex: 1;
       overflow: hidden;
+      min-width: 0;
     }
 
     .cm-editor {
@@ -160,7 +169,7 @@
       gap: .6rem;
       width: 65rem;
       position: relative;
-      justify-content: center;
+      justify-content: flex-start;
       min-height: 3rem;
     }
 
@@ -267,6 +276,7 @@
     .LangSelectWrap {
       display: inline-block;
       flex-shrink: 0;
+      position: relative;
     }
 
     .LangSelect {
@@ -324,7 +334,7 @@
       font-size: 13px;
       text-align: center;
       padding: 5px 12px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Verdana", "Candara", "Roboto", "Oxygen", "Ubuntu", "Trebuchet MS", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
       transform: translateY(100%);
       opacity: 0;
       transition: transform .18s, opacity .18s;
@@ -397,7 +407,7 @@
       padding-top: .35rem;
       border-top: 1px solid #2a3050;
       color: #7a8499;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Verdana", "Candara", "Roboto", "Oxygen", "Ubuntu", "Trebuchet MS", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
       font-size: 11.5px;
       white-space: normal;
       line-height: 1.5;
@@ -443,6 +453,98 @@
       margin-top: 4px;
       color: #888;
     }
+
+    #editor-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #1a1f2e;
+      z-index: 20;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+
+    #editor-loading.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loading-track {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 5px solid rgba(255, 255, 255, 0.25);
+      position: relative;
+    }
+
+    .loading-arc {
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 5px solid transparent;
+      border-top-color: #4f94f1;
+      border-right-color: #4f94f1;
+      animation: editorSpin .75s linear infinite;
+    }
+
+    @keyframes editorSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #minimap-wrap {
+      width: 150px;
+      flex-shrink: 0;
+      position: relative;
+      background: #0d1119;
+      border-left: 1px solid #2a3050;
+      overflow: hidden;
+      cursor: pointer;
+      user-select: none;
+      transition: width .2s, border-color .2s;
+    }
+
+    #minimap-wrap.mm-hidden {
+      width: 0;
+      border-left: none;
+    }
+
+    #minimap-canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #minimap-vbox {
+      position: absolute;
+      left: 0;
+      right: 0;
+      background: rgba(79, 148, 241, 0.13);
+      border-top: 1px solid rgba(79, 148, 241, 0.5);
+      border-bottom: 1px solid rgba(79, 148, 241, 0.5);
+      pointer-events: none;
+      transition: top .05s, height .05s;
+    }
+
+    #minimap-toggle-btn {
+      cursor: pointer;
+      color: #6c7086;
+      font-size: 10px;
+      padding: 0 5px;
+      border: 1px solid #394980;
+      border-radius: 2px;
+      margin-left: auto;
+      line-height: 1.6;
+    }
+
+    #minimap-toggle-btn:hover {
+      color: #4f94f1;
+      border-color: #4f94f1;
+    }
   </style>
 </head>
 
@@ -458,12 +560,25 @@
       Code Block
     </div>
     <div class="CodeEditorContent">
-      <div id="editor-container"></div>
+      <div id="editor-row">
+        <div id="editor-container" style="position:relative">
+          <div id="editor-loading">
+            <div class="loading-track">
+              <div class="loading-arc"></div>
+            </div>
+          </div>
+        </div>
+        <div id="minimap-wrap">
+          <canvas id="minimap-canvas"></canvas>
+          <div id="minimap-vbox"></div>
+        </div>
+      </div>
       <div class="StatusBar">
-        <span id="status-pos">Line 1, Column 1</span>
+        <span id="status-pos">行 1, 列 1</span>
         <span id="status-lang">JavaScript</span>
         <span id="status-mode">Code Block</span>
-        <span id="status-chars">0 Character</span>
+        <span id="status-chars">0 文字</span>
+        <span id="minimap-toggle-btn" title="ミニマップ切替">⊟ Map</span>
       </div>
       <div class="EditorToast" id="editor-toast"></div>
     </div>
@@ -610,8 +725,8 @@ api.log("World code callbacks go here!")`;
       const line = state.doc.lineAt(cursor);
       const mode = document.getElementById('mode-msg');
       statusMode.textContent = `${mode.textContent}`;
-      statusPos.textContent = `Line ${line.number}, Column ${cursor - line.from + 1}`;
-      statusChars.textContent = `${state.doc.length} Character`;
+      statusPos.textContent = `行 ${line.number}, 列 ${cursor - line.from + 1}`;
+      statusChars.textContent = `${state.doc.length} 文字`;
     }
 
     const deleteBracketPair = {
@@ -654,6 +769,11 @@ api.log("World code callbacks go here!")`;
             updateStatus(update.state);
             updateSignatureHelp(update.view);
           }
+          if (update.docChanged) {
+            drawMinimap();
+          } else if (update.selectionSet) {
+            updateMinimapViewport();
+          }
         }),
         EditorView.theme({
           '&': { height: '100%', background: '#1a1f2e' },
@@ -671,7 +791,166 @@ api.log("World code callbacks go here!")`;
       parent: document.getElementById('editor-container'),
     });
 
+    requestAnimationFrame(() => {
+      const loader = document.getElementById('editor-loading');
+      loader.classList.add('hidden');
+      setTimeout(() => loader.remove(), 350);
+      initMinimap();
+    });
+
     updateStatus(view.state);
+
+
+    const MM_W = 150;   // canvas pixel width
+    const MM_LINE_H = 1;     // px per line
+    const MM_CHAR_W = 1.4;   // px per character
+    const MM_PAD = 4;     // left padding
+
+    let mmDragging = false;
+    let mmEnabled = true;
+
+    function initMinimap() {
+      const wrap = document.getElementById('minimap-wrap');
+      const canvas = document.getElementById('minimap-canvas');
+      const toggle = document.getElementById('minimap-toggle-btn');
+
+      view.scrollDOM.addEventListener('scroll', () => {
+        syncMinimapScroll();
+        updateMinimapViewport();
+      });
+
+      wrap.addEventListener('mousedown', (e) => {
+        mmDragging = true;
+        minimapSeek(e.offsetY, wrap, canvas);
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', (e) => {
+        if (!mmDragging) return;
+        const rect = wrap.getBoundingClientRect();
+        minimapSeek(e.clientY - rect.top, wrap, canvas);
+      });
+      document.addEventListener('mouseup', () => { mmDragging = false; });
+
+      toggle.addEventListener('click', () => {
+        mmEnabled = !mmEnabled;
+        wrap.classList.toggle('mm-hidden', !mmEnabled);
+        toggle.textContent = mmEnabled ? '⊟ Map' : '⊞ Map';
+        if (mmEnabled) { drawMinimap(); }
+      });
+
+      drawMinimap();
+    }
+
+    function minimapSeek(offsetY, wrap, canvas) {
+      const totalLines = view.state.doc.lines;
+      const totalH = totalLines * MM_LINE_H;
+      const wrapH = wrap.clientHeight;
+      const canvasTop = parseFloat(canvas.style.top || '0');
+      const absoluteY = offsetY - canvasTop;
+      const fraction = Math.max(0, Math.min(1, absoluteY / totalH));
+      const maxScroll = view.scrollDOM.scrollHeight - view.scrollDOM.clientHeight;
+      view.scrollDOM.scrollTop = fraction * maxScroll;
+    }
+
+    function syncMinimapScroll() {
+      const canvas = document.getElementById('minimap-canvas');
+      const wrap = document.getElementById('minimap-wrap');
+      if (!canvas || !wrap) return;
+
+      const totalLines = view.state.doc.lines;
+      const totalH = totalLines * MM_LINE_H;
+      const wrapH = wrap.clientHeight;
+
+      if (totalH <= wrapH) {
+        canvas.style.top = '0px';
+        return;
+      }
+
+      const scrollDOM = view.scrollDOM;
+      const scrollFrac = scrollDOM.scrollTop / (scrollDOM.scrollHeight - scrollDOM.clientHeight || 1);
+      const lineH = view.defaultLineHeight || 16;
+      const visibleH = scrollDOM.clientHeight / lineH * MM_LINE_H;
+      const vpTop = scrollFrac * (totalH - visibleH);
+      const idealScroll = vpTop - (wrapH - visibleH) / 2;
+      const maxScroll = totalH - wrapH;
+      const cScroll = Math.max(0, Math.min(maxScroll, idealScroll));
+      canvas.style.top = `-${cScroll}px`;
+    }
+
+    function updateMinimapViewport() {
+      const vbox = document.getElementById('minimap-vbox');
+      const canvas = document.getElementById('minimap-canvas');
+      const wrap = document.getElementById('minimap-wrap');
+      if (!vbox || !canvas || !wrap) return;
+
+      const totalLines = view.state.doc.lines;
+      const totalH = totalLines * MM_LINE_H;
+      const scrollH = view.scrollDOM.scrollHeight || 1;
+      const clientH = view.scrollDOM.clientHeight;
+      const scrollT = view.scrollDOM.scrollTop;
+
+      const topFrac = scrollT / scrollH;
+      const hFrac = clientH / scrollH;
+      const cTop = parseFloat(canvas.style.top || '0');
+
+      vbox.style.top = `${topFrac * totalH + cTop}px`;
+      vbox.style.height = `${Math.max(4, hFrac * totalH)}px`;
+    }
+
+    function tokenizeForMinimap(text) {
+      const colors = new Array(text.length).fill('#5a6380');
+      const rules = [
+        [/\/\/.*$/g, '#4a6a4a'],
+        [/"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`/g, '#9a7a3a'],
+        [/\b(const|let|var|function|return|if|else|for|while|new|this|true|false|null|undefined|async|await|class|import|export|from|of|in|typeof|instanceof)\b/g, '#4466bb'],
+        [/\b\d+\.?\d*\b/g, '#aa6633'],
+        [/\bapi\b/g, '#9966cc'],
+      ];
+      for (const [re, color] of rules) {
+        re.lastIndex = 0;
+        let m;
+        while ((m = re.exec(text)) !== null) {
+          for (let k = m.index; k < m.index + m[0].length; k++) colors[k] = color;
+        }
+      }
+      return colors;
+    }
+
+    function drawMinimap() {
+      if (!mmEnabled) return;
+      const canvas = document.getElementById('minimap-canvas');
+      const wrap = document.getElementById('minimap-wrap');
+      if (!canvas || !wrap) return;
+
+      const doc = view.state.doc;
+      const totalLines = doc.lines;
+      const h = totalLines * MM_LINE_H;
+      canvas.width = MM_W;
+      canvas.height = Math.max(h, 1);
+
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#0d1119';
+      ctx.fillRect(0, 0, MM_W, canvas.height);
+
+      for (let i = 1; i <= totalLines; i++) {
+        const line = doc.line(i);
+        const text = line.text;
+        const y = (i - 1) * MM_LINE_H;
+        const colors = tokenizeForMinimap(text);
+
+        for (let j = 0; j < text.length; j++) {
+          const x = MM_PAD + j * MM_CHAR_W;
+          if (x + MM_CHAR_W > MM_W) break;
+          const ch = text[j];
+          if (ch === ' ' || ch === '\t') continue;
+          ctx.fillStyle = colors[j];
+          ctx.fillRect(x, y, MM_CHAR_W, MM_LINE_H - 0.3);
+        }
+      }
+
+      syncMinimapScroll();
+      updateMinimapViewport();
+    }
 
     function showEditorToast(msg, bg = '#1dd06d', fg = '#0f1320') {
       const t = document.getElementById('editor-toast');
@@ -1138,7 +1417,7 @@ api.log("World code callbacks go here!")`;
         const desc = document.createElement('div');
         desc.style.cssText = [
           'color:#7a8499',
-          'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',
+          'font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Verdana", "Candara", "Roboto", "Oxygen", "Ubuntu", "Trebuchet MS", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
           'font-size:11.5px',
           'margin-top:6px',
           'border-top:1px solid #2a3050',
