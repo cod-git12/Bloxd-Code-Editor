@@ -1,6 +1,6 @@
 # Bloxd-Code-Editor
 [Bloxd.io](https://bloxd.io)のゲーム内コードエディターをブラウザ上で再現した、高機能コードエディターです。\
-[JavaScript モジュール](https://esm.sh)を活用し、実際の開発環境に近い操作感を提供します。\
+[JavaScript モジュール](https://esm.sh)を活用し、実際の開発環境に近い操作感を提供します。
 
 \[[日本語](README_ja.md) | [English](README.md)\]
 
@@ -39,7 +39,7 @@
 
 ## ツールチップ機能
 これは、コード内の文字の検索機能を主としたものです。\
-コード内にカーソルを入れた状態でCtrl+Fを押すことで表示されます。また、[Show Tooltips](#Hide Tooltips / Show Tooltips)ボタンで表示することもできます。\
+コード内にカーソルを入れた状態でCtrl+Fを押すことで表示されます。また、[Show Tooltips](#Hide Tooltips / Show Tooltips)ボタンで表示することもできます。
 
 ### 検索
 検索をするには、Findと書いてある入力欄に検索した語をいれると、その文字がハイライトされます。\
@@ -75,7 +75,7 @@ Bloxd.io内での実際の挙動は、コードブロックやワールドコー
 
 ### Show Docs
 これは、Bloxd公式のCode APIドキュメントを開くボタンです。\
-これを押すと、[Bloxdy/code-api](https://github.com/Bloxdy/code-api)が開かれます。（外部のサイトです）\
+これを押すと、[Bloxdy/code-api](https://github.com/Bloxdy/code-api)が開かれます。（外部のサイトです）
 
 ### Format Code
 これは、コードを自動でフォーマットしてくれるボタンです。\
@@ -102,7 +102,7 @@ Bloxd.ioゲーム内の実際の動作としては、コードブロックはク
 現在のモードは、コードエディター下の行数などが書いてあるところに記載してあります。
 
 ## モーダル設定
-右下の設定アイコンを押すことでモーダルウィンドウが開き、各種設定をすることができます。\
+右下の設定アイコンを押すことでモーダルウィンドウが開き、各種設定をすることができます。
 - Minimap — ON/OFFトグル
 - Save .txt files — 現在のコードをテキストファイルとして保存
 - Load .txt files — ファイルを読み込んでエディターに展開（.txt / .js / .ts 対応）
