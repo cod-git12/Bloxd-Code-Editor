@@ -1,0 +1,215 @@
+# Update_log.md
+
+\[[日本語](#日本語) | [English](#english)\]
+
+# English
+*All dates and times are in Japan Standard Time (JST).
+
+## ver. 0.1.0
+Date: `2026/4/14`
+Title: Development Started
+Started development as `bloxd codeeditor`.
+Implemented core editor features such as syntax highlighting.
+
+Editor Features
+- Line numbers, active line highlighting, and code folding
+- Auto-closing brackets and bracket matching
+- Search and undo/redo (Ctrl+Z)
+- Indentation with Tab key
+- Code completion with Ctrl+Space
+
+Toolbar
+- Language switching (JS / TS / HTML / CSS / Python / JSON / Markdown / SQL / C++ / Java)
+- Copy to clipboard
+- Clear editor
+- JSON formatting
+
+## ver. 0.2.0
+Date: `2026/4/14`
+Title: UI Refinement
+
+Design Changes
+- Background: Minecraft-style background with custom pixel pattern + brightness(.6)
+- Editor: Dark panel matching game UI, blue border accent, and oneDark theme
+- Buttons: Implemented NewButton style directly from the game CSS (top/bottom borders, text-shadow, box-shadow) in blue, green, red, and purple
+- Language Select: Dropdown menu using the same button-style design
+- Status Bar: Displays line/column, language, and character count at the bottom
+
+## ver. 0.3.0
+Date: `2026/4/15`
+Title: API Completion
+
+- Typing `api.` now displays all methods as candidates
+  - Signature example: `(void) GameApi.setVelocity(eId, x, y, z)`
+  - Descriptions (info) are displayed for each method
+  - Deprecated methods are marked with ⚠ and shown at the bottom of the list
+
+- Global variables (`myId`, `playerId`, `thisPos`, `ownerDbId`, `api`) are shown at the top
+- Callback names (`tick`, `onPlayerJoin`, `onPlayerKilledOtherPlayer`, etc.) added to completion
+- JS keywords (`const`, `async`, `await`, `for`, etc.) added to completion
+
+## ver. 0.4.0
+Date: `2026/4/16`
+Title: API Completion Arguments and Descriptions
+
+- Signature Help Popup (`#sig-popup`)
+  - Automatically appears the moment `api.methodName(` is typed
+  - Argument names (orange) and types (blue) are styled according to the game screenshot
+  - Current argument is highlighted with an underline and bold text
+  - `?` indicates optional arguments
+  - Return types shown in cyan
+  - Highlight moves to the next argument whenever a comma is typed
+  - Argument descriptions displayed at the bottom
+
+- Enhanced Completion Info Panel
+  - Rich DOM elements used for popups when completing `api.`
+  - Includes typed signatures, descriptions for each argument, and deprecated warnings
+
+## ver. 0.5.0
+Date: `2026/4/16`
+Title: Multiple Fixes and Additions
+
+- JavaScript Dropdown Position — Removed `position: absolute` to place it within the flow. No longer overlaps with Submit Code.
+- Signature Popup Visibility — Removed the check for the autocomplete popup. Now displays immediately upon typing `api.foo(`.
+- Auto-delete Brackets — Pressing Backspace after `(` will also delete the matching `)`. Same for `[`/`]` and `{`/`}`.
+- World Code Header — Clicking the World Code button toggles the header between "Code Block" and "World Code". The button text also changes to "Code Block" to allow switching back. Code Block and World Code now maintain separate content.
+- Toast Notifications — Displays as a full-width green bar at the bottom of the editor.
+- Hide/Show Tooltips — Default state is "Hide Tooltips" (completion and signatures enabled). Clicking changes it to "Show Tooltips", completely disabling completion and signatures. Click again to restore. Search (Ctrl+F) tooltips remain available.
+- Callbacks restricted to World Code — `onPlayerJoin` and others now only appear in the completion list while in World Code mode.
+
+## ver. 0.6.0
+Date: `2026/4/17`
+Title: API Completion Formatting
+
+```
+giveItem(
+playerId: PlayerId,
+itemName: ItemName,
+itemAmount?: number,   // -1 for infinity
+attributes?: ItemAttributes
+): number
+```
+- Methods with zero arguments (e.g., `now()`) remain on a single line
+- `?` used to indicate optional parameters
+- Arguments with descriptions include them as inline comments `// ...` on the same line
+- Return type is placed on the same line as the closing parenthesis
+- Method description displayed below as standard text
+
+### ver. 0.6.1
+Date: `2026/4/17`
+Title: API Completion Formatting Fix
+
+- Updated `renderSigPopup` to output with newlines and indentation for each argument
+
+## ver. 1.0.0
+Date: `2026/4/18`
+Title: Release
+
+Released on GitHub.
+[Try Bloxd Code Editor](https://cod-git12.github.io/Bloxd-Code-Editor)
+
+# 日本語
+※日付はすべて日本時間（JST）です
+
+## ver. 0.1.0
+日付: `2026/4/14`
+タイトル: 作成開始
+`bloxd codeeditor`として作成を開始。
+ハイライトなどの主なエディター機能を搭載しました。
+
+**エディター機能**
+- 行番号・アクティブ行ハイライト・折りたたみ
+- 括弧の自動補完・マッチング
+- 検索・undo/redo（Ctrl+Z）
+- Tabキーでインデント
+- Ctrl+Space でコード補完
+
+**ツールバー**
+- 言語切替（JS / TS / HTML / CSS / Python / JSON / Markdown / SQL / C++ / Java）
+- クリップボードへのコピー
+- エディタクリア
+- JSONフォーマット整形
+
+## ver. 0.2.0
+日付: `2026/4/14`
+タイトル: 外見の整形
+
+**デザインの変更**
+- 背景: 指定のピクセルパターン + brightness(.6) のマイクラ風背景
+- エディター: 画像と同じ暗めのパネル、青枠のアクセント、oneDarkテーマ
+- ボタン: ゲームCSSそのままの NewButton スタイル（上下ボーダー、テキストシャドウ、box-shadow）を青・緑・赤・紫の各色で配置
+- 言語セレクト: 同じボタン系デザインのドロップダウン
+- ステータスバー: 下部に行/列・言語・文字数を表示
+
+## ver. 0.3.0
+日付: `2026/4/15`
+タイトル: apiの補完
+
+- `api.` と打つと メソッド全部が候補として出るように
+  - シグネチャ例: `(void) GameApi.setVelocity(eId, x, y, z)`
+  - 説明文（`info`）にも各メソッドの解説が表示される
+  - deprecated なメソッドは ⚠ マーク付きで候補の下位に表示
+
+- グローバル変数（`myId`, `playerId`, `thisPos`, `ownerDbId`, `api`）がトップに表示される
+- コールバック名（`tick`, `onPlayerJoin`, `onPlayerKilledOtherPlayer` など）も補完に出る
+- JSキーワード（`const`, `async`, `await`, `for` など）も補完
+
+## ver. 0.4.0
+日付: `2026/4/16`
+タイトル: apiの補完の引数・説明
+
+- **シグネチャヘルプポップアップ** (`#sig-popup`)
+  - `api.methodName(` を入力した瞬間に自動表示
+  - 引数名（オレンジ）・型（青）をスクリーンショットと同じスタイルで表示
+  - 現在カーソルがいる引数をアンダーライン＋太字でハイライト
+  - `?` で optional引数を示す
+  - 戻り値の型（シアン）
+  - カンマを打つたびにハイライトが次の引数に移動
+  - 引数の説明文を下部に表示
+
+- **補完 info パネルの強化**
+  - `api.` 補完時のポップアップをリッチなDOM要素で表示
+  - 型付きシグネチャ・各引数の説明・deprecated警告
+
+## ver. 0.5.0
+日付: `2026/4/16`
+タイトル: 複数の機能を修正・追加
+
+- **JavaScriptドロップダウンの位置** — `position: absolute` を外してフロー内に配置。Submit Codeと重ならなくなりました。
+- **シグネチャポップアップが出ない問題** — autocomplete ポップアップの有無チェックを除去。`api.foo(` と入力した瞬間に必ず表示されるようになりました。
+- **括弧の自動削除** — `(` の直後で Backspace を押すと `)` も同時に消えます。`[`/`]`、`{`/`}` も同様。
+- **World Code ヘッダー** — World Code ボタンを押すと、ヘッダーが「Code Block」→「World Code」に切り替わります。ボタンのテキストも「Code Block」に変わり、押すと戻れます。Code Block と World Code は別々の内容を保持します。
+- **トースト通知** — エディター下部に全幅の緑バーとして表示されます。
+- **Hide/Show Tooltips** — 初期状態は「Hide Tooltips」（補完・シグネチャ有効）。押すと「Show Tooltips」になり補完とシグネチャが完全に無効化。再度押すと復活。検索（Ctrl+F）ツールチップは引き続き利用可能です
+- **コールバック補完はWorld Codeのみ** — `onPlayerJoin` などは World Code モードでのみ候補に出ます。
+
+## ver. 0.6.0
+日付: `2026/4/17`
+タイトル: apiの補完の整形
+```
+giveItem(
+  playerId: PlayerId,
+  itemName: ItemName,
+  itemAmount?: number,   // -1 for infinity
+  attributes?: ItemAttributes
+): number
+```
+
+- 引数ゼロのメソッド（`now()` など）は1行のまま
+- `?` で optional を表示
+- descriptionがある引数は `// ...` でインラインコメントとして同じ行に表示
+- 戻り値の型は閉じカッコと同じ行
+- メソッド説明は下部に通常テキストで表示
+
+### ver. 0.6.1
+日付: `2026/4/17`
+タイトル: apiの補完の整形の修正
+
+- `renderSigPopup` を引数ごとに改行＋インデントして出力するようにした
+
+## ver. 1.0.0
+日付: `2026/4/18`
+タイトル: 公開
+
+githubにて公開しました。
+[Bloxd Code Editor を使ってみる](https://cod-git12.github.io/Bloxd-Code-Editor)

@@ -460,10 +460,10 @@
     <div class="CodeEditorContent">
       <div id="editor-container"></div>
       <div class="StatusBar">
-        <span id="status-pos">行 1, 列 1</span>
+        <span id="status-pos">Line 1, Column 1</span>
         <span id="status-lang">JavaScript</span>
         <span id="status-mode">Code Block</span>
-        <span id="status-chars">0 文字</span>
+        <span id="status-chars">0 Character</span>
       </div>
       <div class="EditorToast" id="editor-toast"></div>
     </div>
@@ -610,8 +610,8 @@ api.log("World code callbacks go here!")`;
       const line = state.doc.lineAt(cursor);
       const mode = document.getElementById('mode-msg');
       statusMode.textContent = `${mode.textContent}`;
-      statusPos.textContent = `行 ${line.number}, 列 ${cursor - line.from + 1}`;
-      statusChars.textContent = `${state.doc.length} 文字`;
+      statusPos.textContent = `Line ${line.number}, Column ${cursor - line.from + 1}`;
+      statusChars.textContent = `${state.doc.length} Character`;
     }
 
     const deleteBracketPair = {

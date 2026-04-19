@@ -1,114 +1,85 @@
 # Bloxd-Code-Editor
-[Bloxd.io](https://bloxd.io)のゲーム内コードエディターをブラウザ上で再現した、高機能コードエディターです。\
-[JavaScript モジュール](https://esm.sh)を活用し、実際の開発環境に近い操作感を提供します。\
+A high-performance code editor that replicates the in-game editor of [Bloxd.io](https://bloxd.io) within your browser.  
+Built using [JavaScript modules (esm.sh)](https://esm.sh), it provides a development experience close to professional environments.
 
-<img src="./image/Screenshot_01.png" alt="Code Editor" width="60%">
+\[[日本語](README_ja.md) | [English](README.md)\]
 
-# 機能
-- ハイライト機能
-- 自動補完機能
-- ツールチップ機能
-- メインボタン
+<img src="./image/Screenshot_01.png" alt="Code Editor" width="80%">
 
-## ハイライト機能
-コードを種類別にわけて色をつけ、視認性を高くする機能です。\
-[JavaScript モジュール](https://esm.sh)のコードミラーを使用しています。
-以下の配色は[言語](#言語選択)をJavaScriptに設定している場合の配色です。
+# Features
+- Syntax Highlighting
+- Auto-completion
+- Tooltip Features (Find & Replace)
+- Main Control Buttons
 
-|種類|色|役割の例|
+## Syntax Highlighting
+This feature categorizes code elements by color to improve readability.  
+It utilizes CodeMirror via [esm.sh](https://esm.sh).  
+The following color scheme applies when the [Language](#Language-Selection) is set to JavaScript:
+
+| Category | Color | Examples |
 |---|---|---|
-|変数名・プロパティ|#e06c75|`const name`, `player.pos`|
-|文字列|#98c379|`"Hello World"`|
-|キーワード (async等)|#e5c07b|`async`, `await`|
-|演算子|#56b6c2|`+`, `-`, `=`, `=>`|
-|記号・括弧|#abb2bf|`()`, `{}`, `;`, `,`|
-|制御構文・宣言|#c678dd|`if`, `else`, `function`, `let`|
-|関数名|#61afef|`print()`, `addEvent()`|
+| Variables & Properties | `#e06c75` | `const name`, `player.pos` |
+| Strings | `#98c379` | `"Hello World"` |
+| Keywords (async, etc.) | `#e5c07b` | `async`, `await` |
+| Operators | `#56b6c2` | `+`, `-`, `=`, `=>` |
+| Punctuation & Brackets | `#abb2bf` | `()`, `{}`, `;`, `,` |
+| Control Flow & Declarations | `#c678dd` | `if`, `else`, `function`, `let` |
+| Function Names | `#61afef` | `print()`, `addEvent()` |
 
-※自分でもよくわかっていないので何かあったらIssues(問題)のほうにお願いします。
+*Note: If you encounter any highlighting issues, please report them in the Issues section.*
 
-また、括弧などにカーソルを合わせると背景色がつき、もう片方の括弧にも背景色がつきます。これにより、複雑なコードでもどこで閉じているのかがわかるようになります。
+Additionally, when the cursor is placed on a bracket, both the active and its matching bracket are highlighted. This makes it easier to navigate complex code structures.
 
-## 自動補完機能
-開き括弧などを入力すると、その後に閉じ括弧が自動で補完されます。これは\<html>などのタグを入力した場合にも適用されます。\
-さらに、言語をJavaScriptに設定している場合のみ、JavaScriptに関するキーワードの文字の一部を入力した際、その文字が含まれるキーワードのリストが表示されます。\
-これはapiも同じで、api関数名の一部を入力するとその文字が含まれるapi関数名のリストと説明が表示されます。（コールバックはワールドコード時のみ、表示されます。詳細は[World Code / Code Block](#World Code / Code Block)からご覧ください。）
+## Auto-completion
+When you type an opening bracket, the corresponding closing bracket is automatically inserted. This also applies to HTML tags.  
+Furthermore, when the language is set to JavaScript, a suggestion list appears as you type keywords.  
+This includes the Bloxd API; typing part of an API function name will display a list of matching functions along with their descriptions. (Callbacks are only displayed in World Code mode. See [World Code / Code Block](#World-Code-/-Code-Block) for details.)
 
-## ツールチップ機能
-これは、コード内の文字の検索機能を主としたものです。\
-コード内にカーソルを入れた状態でCtrl+Fを押すことで表示されます。また、[Show Tooltips](#Hide Tooltips / Show Tooltips)ボタンで表示することもできます。\
+## Tooltip Features
+The tooltip menu primarily handles text searching.  
+You can open it by pressing `Ctrl + F` while the cursor is in the editor, or by clicking the [Show Tooltips](#Hide-Tooltips-/-Show-Tooltips) button.
 
-### 検索
-検索をするには、Findと書いてある入力欄に検索した語をいれると、その文字がハイライトされます。\
-nextを押すと次の文字へ、previousを押すと一つ前の文字へ移動します。allは、よくわかっていませんが、すべてを選択してハイライトする機能だと思われます。\
-match caseにチェックを入れると、大文字小文字が区別されます。\
-regexpは、正規表現です。正規表現は、パターンが多すぎるので自分で調べてください。例えば、`^ab`でabから始まる文字を検索できるなどです。\
-by word二チェックを入れると、語句として検索することができます。`ab`を検索に入れると、`ab-ab`や`ab ab`のabが検索に引っかかります。`abab`のabはどちらも引っかかりません。
+### Search
+Enter the text you want to find in the "Find" field to highlight matching results.  
+- **next / previous**: Navigate through the results.  
+- **all**: Selects and highlights all matches.  
+- **match case**: Distinguishes between uppercase and lowercase letters.  
+- **regexp**: Enables Regular Expressions. For example, `^ab` finds text starting with "ab".  
+- **by word**: Searches for whole words only. Searching "ab" will match `ab-ab` or `ab ab`, but not `abab`.
 
-### 置換
-置換は、文字を置き換えることができる機能です。[検索](#検索)に置換したい元の文字を入れ、Replaceに置換後の文字を入れてください。\
-そして、replaceを押すことで選択している場所を置換することができます。replace allを押すと検索に引っかかったすべての文字を置換することができます。
+### Replace
+Use this to swap text. Enter the original text in the Search field and the new text in the "Replace" field.  
+- **replace**: Replaces the currently selected match.  
+- **replace all**: Replaces every occurrence in the code.
 
-## メインボタン
-メインボタンは、コード入力欄の下にあるボタンのことです。\
-これを使用することで様々な事ができます。ボタンは、以下のものがあります。
+## Main Control Buttons
+Located below the code input area, these buttons provide various utilities:
 
-- 言語選択（プルダウン）
-- Submit Code
-- Show Docs
-- Format Code
-- Copy Code
-- Hide Tooltips / Show Tooltips
-- World Code / Code Block
-
-### 言語選択
-これはボタンではなくプルダウンで、コードの[ハイライト](#ハイライト機能)に影響します。\
-ここの言語を変更すると、コードの文字につけられた色が変化します。
+### Language Selection (Dropdown)
+Changes the [Syntax Highlighting](#Syntax-Highlighting) mode. Selecting a different language updates the color scheme to match that language's syntax.
 
 ### Submit Code
-これは、コードをファイルに保存するボタンです。\
-Bloxd.io内での実際の挙動は、コードブロックやワールドコード内に入力したものを保存して画面を閉じるというものです。\
-ですが、このエディターは最初から画面が開かれた状態なので、ファイルに保存するという挙動にしました。
+Saves the current code to a file.  
+In the actual Bloxd.io game, this would save the code to a block and close the UI. In this editor, it triggers a file download/save.
 
 ### Show Docs
-これは、Bloxd公式のCode APIドキュメントを開くボタンです。\
-これを押すと、[Bloxdy/code-api](https://github.com/Bloxdy/code-api)が開かれます。（外部のサイトです）\
+Opens the official Bloxd Code API documentation.  
+Redirects to the [Bloxdy/code-api](https://github.com/Bloxdy/code-api) GitHub repository.
 
 ### Format Code
-これは、コードを自動でフォーマットしてくれるボタンです。\
-[JavaScript　モジュール](https://esm.sh)のprettierを使用しています。\
-各言語の記入方法にあわせてフォーマットしてくれます。\
-さらに、コードの記入にエラーが有ると表示されます。
+Automatically formats your code using **Prettier** via [esm.sh](https://esm.sh).  
+It tidies up the code according to the language rules and displays an error message if the syntax is invalid.
 
 ### Copy Code
-これは、コード全文をコピーするボタンです。\
-これはCtrl+AをしてCtrl+Cで全文コピーをするものと同じ挙動をします。\
-なぜこれが必要かというと、Bloxd.ioゲーム内の挙動は、Ctrl+Aを押しても現在見えている範囲しか選択されないようになっているからです。
+Copies the entire code to your clipboard.  
+While this performs the same action as `Ctrl+A` > `Ctrl+C`, it is included because the actual Bloxd.io game editor often fails to select the entire script (only selecting the visible area) when using keyboard shortcuts.
 
 ### Hide Tooltips / Show Tooltips
-これは、ツールチップを非表示/表示にするボタンです。\
-[自動補完機能](#自動補完機能)に含まれる、キーワードなどの一部を入力したときにリストが表示されるかどうかを選択します。\
-ボタン名が`Hide Tooltips`になっていれば表示、`Show Tooltips`になっていれば非表示です。\
-検索や置換ができる[ツールチップ](#ツールチップ機能)も表示・非表示されます。（これは手動で表示・非表示ができます。）
+Toggles the visibility of the auto-completion list and the search/replace tooltips.  
+When set to `Hide Tooltips`, suggestions will appear; when set to `Show Tooltips`, they are disabled.
 
 ### World Code / Code Block
-これは、ワールドコードとコードブロックを切り替えるボタンです。\
-コードブロックとワールドコードの主な違いは、コールバックを使えるかどうか、です。\
-これはエディター内の動作では、補完機能のみに影響しますが、Bloxd.ioゲーム内では、実際にコールバックは使用できません。\
-Bloxd.ioゲーム内の実際の動作としては、コードブロックはクリックした場合、ワールドコードはワールド内の動作から動くというものです。\
-現在のモードは、コードエディター下の行数などが書いてあるところに記載してあります。
-
-----
-
-# アップデートログ
-※日付は日本時間（JST）です
-|バージョン|日付|内容|詳細|種類|
-|---|---|---|---|---|
-|ver.0.1.0|2026/4/14|作成開始|`bloxd codeeditor`として作成を開始。ハイライトなどの主なエディター機能を搭載しました。|`作成`|
-|ver.0.2.0|2026/4/14|外見の整形|背景をBloxdの背景と一致させたり、ボタンを整えたりしました。|`更新`|
-|ver.0.3.0|2026/4/15|apiの補完|Bloxdのcode-apiドキュメントを元に、apiの補完を追加しました。|`更新`|
-|ver.0.4.0|2026/4/16|apiの補完の引数・説明|apiの補完に引数とapiの説明を追加しました。|`更新`|
-|ver.0.5.0|2026/4/16|複数の機能を修正・追加|apiの補完機能、ワールドコードとコードブロックの切り替えの追加、表示メッセージの形式変更などです。|`更新`|
-|ver.0.6.0|2026/4/17|apiの補完の整形|apiの補完内に引数などで改行されるように修正しました。|`更新`|
-|ver.0.6.1|2026/4/17|apiの補完の整形の修正|補完内では改行されたものの、カッコ内での説明が適用されなかったものを修正しました。|`更新`|
-|ver.1.0.0|2026/4/18|公開|`Bloxd Code Editor`を公開しました。|`公開`|
+Toggles between **World Code** and **Code Block** modes.  
+The main difference is the availability of Callbacks. In this editor, this toggle only affects the auto-completion suggestions.  
+*Note: In the actual game, Code Blocks trigger on click/interaction, while World Code runs as part of the world logic.* The current mode is displayed in the status bar at the bottom of the editor.
