@@ -496,7 +496,7 @@
     }
 
     #minimap-wrap {
-      width: 150px;
+      width: 110px;
       flex-shrink: 0;
       position: relative;
       background: #0d1119;
@@ -530,20 +530,166 @@
       transition: top .05s, height .05s;
     }
 
-    #minimap-toggle-btn {
+    #settings-btn {
       cursor: pointer;
       color: #6c7086;
-      font-size: 10px;
-      padding: 0 5px;
-      border: 1px solid #394980;
-      border-radius: 2px;
+      font-size: 13px;
       margin-left: auto;
-      line-height: 1.6;
+      line-height: 1;
+      padding: 1px 4px;
+      border-radius: 3px;
+      transition: color .15s;
     }
 
-    #minimap-toggle-btn:hover {
+    #settings-btn:hover {
       color: #4f94f1;
-      border-color: #4f94f1;
+    }
+
+    #settings-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .55);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #settings-overlay.open {
+      display: flex;
+    }
+
+    #settings-modal {
+      background: #1b1f2e;
+      border: 1px solid #394980;
+      box-shadow: 0 8px 32px #00000080, .3rem .4rem 0 #00000040;
+      padding: 0;
+      width: 320px;
+      min-width: 260px;
+      font-family: inherit;
+      color: #cdd6f4;
+    }
+
+    #settings-modal header {
+      background: #151a28;
+      border-bottom: 1px solid #2a3050;
+      padding: .5rem 1rem;
+      font-weight: 700;
+      font-size: .9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #settings-close {
+      cursor: pointer;
+      color: #6c7086;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    #settings-close:hover {
+      color: #fc6464;
+    }
+
+    .settings-section {
+      padding: .6rem 1rem;
+      border-bottom: 1px solid #2a3050;
+      font-size: .82rem;
+    }
+
+    .settings-section:last-child {
+      border-bottom: none;
+    }
+
+    .settings-section h3 {
+      color: #89b4fa;
+      font-size: .75rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: .45rem;
+      font-weight: 700;
+    }
+
+    .settings-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: .3rem;
+    }
+
+    .settings-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .settings-label {
+      color: #a6adc8;
+    }
+
+    .sw {
+      position: relative;
+      display: inline-block;
+      width: 34px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .sw input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .sw-track {
+      position: absolute;
+      inset: 0;
+      background: #313244;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .sw input:checked+.sw-track {
+      background: #4f94f1;
+    }
+
+    .sw-track::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #fff;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: transform .2s;
+    }
+
+    .sw input:checked+.sw-track::after {
+      transform: translateX(16px);
+    }
+
+    .settings-file-row {
+      display: flex;
+      gap: .4rem;
+      margin-top: .4rem;
+    }
+
+    .settings-file-btn {
+      flex: 1;
+      background: #313244;
+      border: 1px solid #45475a;
+      color: #cdd6f4;
+      font-size: .78rem;
+      padding: .3rem .5rem;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: center;
+      transition: background .15s;
+    }
+
+    .settings-file-btn:hover {
+      background: #45475a;
     }
   </style>
 </head>
@@ -574,11 +720,11 @@
         </div>
       </div>
       <div class="StatusBar">
-        <span id="status-pos">行 1, 列 1</span>
+        <span id="status-pos">Line 1, Column 1</span>
         <span id="status-lang">JavaScript</span>
         <span id="status-mode">Code Block</span>
-        <span id="status-chars">0 文字</span>
-        <span id="minimap-toggle-btn" title="ミニマップ切替">⊟ Map</span>
+        <span id="status-chars">0 Character</span>
+        <span id="settings-btn" title="設定">⚙</span>
       </div>
       <div class="EditorToast" id="editor-toast"></div>
     </div>
@@ -646,6 +792,42 @@
   </div>
 
   <div id="sig-popup"></div>
+
+  <!-- Settings Modal -->
+  <div id="settings-overlay">
+    <div id="settings-modal">
+      <header>
+        <span>⚙ Settings</span>
+        <span id="settings-close">✕</span>
+      </header>
+
+      <div class="settings-section">
+        <h3>Editor</h3>
+        <div class="settings-row">
+          <span class="settings-label">Minimap</span>
+          <label class="sw"><input type="checkbox" id="sw-minimap"><span class="sw-track"></span></label>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>File</h3>
+        <div class="settings-file-row">
+          <button class="settings-file-btn" id="btn-save-file">💾 Save .txt files</button>
+          <button class="settings-file-btn" id="btn-load-file">📂 Load .txt files</button>
+          <input type="file" id="file-input" accept=".txt,.js,.ts" style="display:none">
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>Auto-save</h3>
+        <div class="settings-row">
+          <span class="settings-label" style="font-size:.78rem;color:#7a8499">Restore on Reopen</span>
+          <label class="sw"><input type="checkbox" id="sw-autosave" checked><span class="sw-track"></span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="file" id="file-input-hidden" accept=".txt,.js,.ts" style="display:none">
 
   <script type="module">
     import { EditorState, StateField, StateEffect } from 'https://esm.sh/@codemirror/state@6';
@@ -725,8 +907,8 @@ api.log("World code callbacks go here!")`;
       const line = state.doc.lineAt(cursor);
       const mode = document.getElementById('mode-msg');
       statusMode.textContent = `${mode.textContent}`;
-      statusPos.textContent = `行 ${line.number}, 列 ${cursor - line.from + 1}`;
-      statusChars.textContent = `${state.doc.length} 文字`;
+      statusPos.textContent = `Line ${line.number}, Column ${cursor - line.from + 1}`;
+      statusChars.textContent = `${state.doc.length} Character`;
     }
 
     const deleteBracketPair = {
@@ -771,6 +953,10 @@ api.log("World code callbacks go here!")`;
           }
           if (update.docChanged) {
             drawMinimap();
+            if (autosaveEnabled) {
+              const key = currentMode === 'worldcode' ? 'bloxd_ce_worldcode' : 'bloxd_ce_codeblock';
+              localStorage.setItem(key, update.state.doc.toString());
+            }
           } else if (update.selectionSet) {
             updateMinimapViewport();
           }
@@ -801,13 +987,13 @@ api.log("World code callbacks go here!")`;
     updateStatus(view.state);
 
 
-    const MM_W = 150;   // canvas pixel width
-    const MM_LINE_H = 1;     // px per line
+    const MM_W = 110;   // canvas pixel width
+    const MM_LINE_H = 2;     // px per line
     const MM_CHAR_W = 1.4;   // px per character
     const MM_PAD = 4;     // left padding
 
     let mmDragging = false;
-    let mmEnabled = true;
+    let mmEnabled = false;
 
     function initMinimap() {
       const wrap = document.getElementById('minimap-wrap');
@@ -831,12 +1017,7 @@ api.log("World code callbacks go here!")`;
       });
       document.addEventListener('mouseup', () => { mmDragging = false; });
 
-      toggle.addEventListener('click', () => {
-        mmEnabled = !mmEnabled;
-        wrap.classList.toggle('mm-hidden', !mmEnabled);
-        toggle.textContent = mmEnabled ? '⊟ Map' : '⊞ Map';
-        if (mmEnabled) { drawMinimap(); }
-      });
+      wrap.classList.add('mm-hidden');
 
       drawMinimap();
     }
@@ -902,7 +1083,7 @@ api.log("World code callbacks go here!")`;
       const rules = [
         [/\/\/.*$/g, '#4a6a4a'],
         [/"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`/g, '#9a7a3a'],
-        [/\b(const|let|var|function|return|if|else|for|while|new|this|true|false|null|undefined|async|await|class|import|export|from|of|in|typeof|instanceof)\b/g, '#4466bb'],
+        [/\b(const|let|var|function|return|if|else|for|while|new|this|true|false|null|undefined|async|await|class|import|export|from|of|in|typeof|instanceof)\b/g, '#4466bb'],  // keyword
         [/\b\d+\.?\d*\b/g, '#aa6633'],
         [/\bapi\b/g, '#9966cc'],
       ];
@@ -951,6 +1132,67 @@ api.log("World code callbacks go here!")`;
       syncMinimapScroll();
       updateMinimapViewport();
     }
+
+    const settingsOverlay = document.getElementById('settings-overlay');
+    const swMinimap = document.getElementById('sw-minimap');
+    const swAutosave = document.getElementById('sw-autosave');
+
+    document.getElementById('settings-btn').addEventListener('click', () => {
+      settingsOverlay.classList.add('open');
+    });
+    document.getElementById('settings-close').addEventListener('click', () => {
+      settingsOverlay.classList.remove('open');
+    });
+    settingsOverlay.addEventListener('click', (e) => {
+      if (e.target === settingsOverlay) settingsOverlay.classList.remove('open');
+    });
+
+    swMinimap.checked = mmEnabled;
+    swMinimap.addEventListener('change', () => {
+      mmEnabled = swMinimap.checked;
+      const wrap = document.getElementById('minimap-wrap');
+      wrap.classList.toggle('mm-hidden', !mmEnabled);
+      if (mmEnabled) drawMinimap();
+    });
+
+    swAutosave.addEventListener('change', () => {
+      autosaveEnabled = swAutosave.checked;
+      if (!autosaveEnabled) {
+        localStorage.removeItem('bloxd_ce_codeblock');
+        localStorage.removeItem('bloxd_ce_worldcode');
+        showEditorToast('Auto-save disabled', '#e34f4f', '#fff');
+      } else {
+        showEditorToast('Auto-save enabled');
+      }
+    });
+
+    document.getElementById('btn-save-file').addEventListener('click', () => {
+      const code = view.state.doc.toString();
+      const blob = new Blob([code], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = currentMode + '.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+      showEditorToast('💾 Saved!');
+    });
+
+    const fileInput = document.getElementById('file-input');
+    document.getElementById('btn-load-file').addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const text = ev.target.result;
+        view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: text } });
+        settingsOverlay.classList.remove('open');
+        showEditorToast('📂 Loaded: ' + file.name);
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    });
 
     function showEditorToast(msg, bg = '#1dd06d', fg = '#0f1320') {
       const t = document.getElementById('editor-toast');

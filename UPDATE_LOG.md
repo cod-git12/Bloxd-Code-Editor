@@ -122,6 +122,18 @@ Title: Minimap Addition and Functional Fixes/Additions
   - Toggle — Click the ⊟ Map icon at the right end of the status bar to hide it (changes to ⊞ Map), and click again to show it.
   - Auto-update on Code Changes — The minimap redraws automatically as you type.
 
+## ver. 1.2.0
+Date: `2026/4/19`\
+Title: Addition of Modal Settings
+
+Clicking the settings icon in the bottom right corner opens a modal window where you can adjust various preferences.
+- Minimap — ON/OFF toggle.
+- Save .txt files — Saves the current code as a text file.
+- Load .txt files — Loads and imports files into the editor (supports .txt, .js, and .ts).
+- Auto-save — When toggled ON, code is automatically saved to localStorage as you type and will be restored upon reopening the tab. When toggled OFF, all data in localStorage is deleted.
+
+*Note: The map toggle button has been moved to this modal.
+
 # 日本語
 ※日付はすべて日本時間（JST）です
 
@@ -241,3 +253,15 @@ githubにて公開しました。\
   - クリック/ドラッグでジャンプ — ミニマップをクリック・ドラッグすると対応箇所にスクロール
   - トグル — ステータスバー右端の ⊟ Map をクリックで非表示（⊞ Map に変わる）、もう一度で再表示
   - コード変更時に自動更新 — タイプするたびにミニマップが再描画されます
+
+## ver. 1.2.0
+日付: `2026/4/19`\
+タイトル: モーダル設定の追加
+
+右下の設定アイコンを押すことでモーダルウィンドウが開き、各種設定をすることができます。\
+- Minimap — ON/OFFトグル
+- Save .txt files — 現在のコードをテキストファイルとして保存
+- Load .txt files — ファイルを読み込んでエディターに展開（.txt / .js / .ts 対応）
+- Auto-save — トグルONで入力のたびに localStorage に自動保存、タブを閉じて再度開くと復元される。OFFにするとlocalStorageのデータを削除
+
+※マップボタンはここへ移動しました。

@@ -11,6 +11,7 @@ Built using [JavaScript modules (esm.sh)](https://esm.sh), it provides a develop
 - Auto-completion
 - Tooltip Features (Find & Replace)
 - Main Control Buttons
+- Modal Settings
 
 ## Syntax Highlighting
 This feature categorizes code elements by color to improve readability.  
@@ -84,7 +85,14 @@ Toggles between **World Code** and **Code Block** modes.
 The main difference is the availability of Callbacks. In this editor, this toggle only affects the auto-completion suggestions.  
 *Note: In the actual game, Code Blocks trigger on click/interaction, while World Code runs as part of the world logic.* The current mode is displayed in the status bar at the bottom of the editor.
 
-## Minimap Feature
-This feature displays a minimap of your code.  
-A minimap provides a scaled-down overview of the entire script on the right side of the screen, helping you visualize the overall structure and quickly navigate to specific sections.  
-You can toggle its visibility by clicking the ⊟ Map / ⊞ Map button.
+## Modal Settings
+Clicking the settings icon in the bottom right corner opens a modal window where you can adjust various preferences.
+- Minimap — ON/OFF toggle.
+- Save .txt files — Saves the current code as a text file.
+- Load .txt files — Loads and imports files into the editor (supports .txt, .js, and .ts).
+- Auto-save — When toggled ON, code is automatically saved to localStorage as you type and will be restored upon reopening the tab. When toggled OFF, all data in localStorage is deleted.
+
+### Minimap Feature
+This feature displays a minimap of your code.
+A minimap provides a scaled-down overview of the entire script on the right side of the screen, helping you visualize the overall structure and quickly navigate to specific sections.
+You can toggle its visibility using the Minimap switch in the Modal Settings.
