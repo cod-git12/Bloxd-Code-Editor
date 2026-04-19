@@ -134,6 +134,12 @@ Clicking the settings icon in the bottom right corner opens a modal window where
 
 *Note: The map toggle button has been moved to this modal.
 
+## ver. 1.2.1
+Date: `2026/4/19`
+Title: Local Storage Fix
+
+Fixed an issue where `autosaveEnabled` was not defined, which caused local storage features and other related functions to become unavailable.
+
 # 日本語
 ※日付はすべて日本時間（JST）です
 
@@ -158,7 +164,7 @@ Clicking the settings icon in the bottom right corner opens a modal window where
 
 ## ver. 0.2.0
 日付: `2026/4/14`\
-タイトル: 外見の整形\
+タイトル: 外見の整形
 
 **デザインの変更**
 - 背景: 指定のピクセルパターン + brightness(.6) のマイクラ風背景
@@ -258,10 +264,16 @@ githubにて公開しました。\
 日付: `2026/4/19`\
 タイトル: モーダル設定の追加
 
-右下の設定アイコンを押すことでモーダルウィンドウが開き、各種設定をすることができます。\
+右下の設定アイコンを押すことでモーダルウィンドウが開き、各種設定をすることができます。
 - Minimap — ON/OFFトグル
 - Save .txt files — 現在のコードをテキストファイルとして保存
 - Load .txt files — ファイルを読み込んでエディターに展開（.txt / .js / .ts 対応）
 - Auto-save — トグルONで入力のたびに localStorage に自動保存、タブを閉じて再度開くと復元される。OFFにするとlocalStorageのデータを削除
 
 ※マップボタンはここへ移動しました。
+
+## ver. 1.2.1
+日付: `2026/4/19`\
+タイトル: ローカルストレージの修正
+
+コード内で`autosaveEnabled`が定義されていなく、ローカルストレージ機能などが使用できなくなっていた問題を修正しました。

@@ -40,6 +40,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* ===== BACKGROUND ===== */
     .HomePageBackgroundContainer {
       position: fixed;
       top: 0;
@@ -69,6 +70,7 @@
       z-index: 1;
     }
 
+    /* ===== GAME SCREEN WRAPPER ===== */
     .GameBackgroundScreen {
       align-items: center;
       display: flex;
@@ -98,6 +100,7 @@
       font-weight: bold;
       padding: 10px 0;
       display: block;
+      /*margin-top: 20px;*/
     }
 
     .CodeEditorContent {
@@ -163,6 +166,7 @@
       color: #fc6464;
     }
 
+    /* ===== BUTTONS ROW ===== */
     .ButtonsRow {
       display: flex;
       align-items: center;
@@ -173,6 +177,7 @@
       min-height: 3rem;
     }
 
+    /* ===== NEW BUTTON ===== */
     .NewButton {
       --buttonNormalColour: var(--blue-4);
       --buttonTopColour: var(--blue-5);
@@ -273,6 +278,7 @@
       --buttonBottomColour: var(--red-3);
     }
 
+    /* Lang select */
     .LangSelectWrap {
       display: inline-block;
       flex-shrink: 0;
@@ -307,6 +313,7 @@
       font-size: .8rem;
     }
 
+    /* Scrollbar */
     ::-webkit-scrollbar {
       width: 1.5vmin;
       max-width: 12px;
@@ -323,6 +330,7 @@
       box-shadow: inset 0 0 6px #0000004d;
     }
 
+    /* Editor Toast (image-style full-width bar) */
     .EditorToast {
       position: absolute;
       bottom: 0;
@@ -347,6 +355,7 @@
       opacity: 1;
     }
 
+    /* ===== SIGNATURE HELP POPUP ===== */
     #sig-popup {
       display: none;
       position: fixed;
@@ -434,6 +443,7 @@
       margin-bottom: .2rem;
     }
 
+    /* リストアイテム全体の高さを強制解放 */
     .monaco-list-row,
     .monaco-list-row .contents,
     .monaco-list-row .main-line {
@@ -443,17 +453,21 @@
       flex-direction: column !important;
     }
 
+    /* ラベル部分の折り返し設定 */
     .monaco-list-row .monaco-highlighted-label {
       white-space: pre-wrap !important;
       display: inline-block !important;
     }
 
+    /* シグネチャ（引数）部分を強制改行 */
     .monaco-list-row .monaco-highlighted-label .signature {
       display: block !important;
       margin-top: 4px;
       color: #888;
+      /* 引数を見やすくする */
     }
 
+    /* ===== EDITOR LOADING ===== */
     #editor-loading {
       position: absolute;
       inset: 0;
@@ -495,6 +509,7 @@
       }
     }
 
+    /* ===== MINIMAP ===== */
     #minimap-wrap {
       width: 110px;
       flex-shrink: 0;
@@ -545,6 +560,7 @@
       color: #4f94f1;
     }
 
+    /* ===== SETTINGS MODAL ===== */
     #settings-overlay {
       display: none;
       position: fixed;
@@ -626,6 +642,7 @@
       color: #a6adc8;
     }
 
+    /* toggle switch */
     .sw {
       position: relative;
       display: inline-block;
@@ -669,6 +686,7 @@
       transform: translateX(16px);
     }
 
+    /* file btns */
     .settings-file-row {
       display: flex;
       gap: .4rem;
@@ -720,10 +738,10 @@
         </div>
       </div>
       <div class="StatusBar">
-        <span id="status-pos">Line 1, Column 1</span>
+        <span id="status-pos">行 1, 列 1</span>
         <span id="status-lang">JavaScript</span>
         <span id="status-mode">Code Block</span>
-        <span id="status-chars">0 Character</span>
+        <span id="status-chars">0 文字</span>
         <span id="settings-btn" title="設定">⚙</span>
       </div>
       <div class="EditorToast" id="editor-toast"></div>
@@ -812,8 +830,8 @@
       <div class="settings-section">
         <h3>File</h3>
         <div class="settings-file-row">
-          <button class="settings-file-btn" id="btn-save-file">💾 Save .txt files</button>
-          <button class="settings-file-btn" id="btn-load-file">📂 Load .txt files</button>
+          <button class="settings-file-btn" id="btn-save-file">💾 Save .txt</button>
+          <button class="settings-file-btn" id="btn-load-file">📂 Load .txt</button>
           <input type="file" id="file-input" accept=".txt,.js,.ts" style="display:none">
         </div>
       </div>
@@ -821,7 +839,7 @@
       <div class="settings-section">
         <h3>Auto-save</h3>
         <div class="settings-row">
-          <span class="settings-label" style="font-size:.78rem;color:#7a8499">Restore on Reopen</span>
+          <span class="settings-label" style="font-size:.78rem;color:#7a8499">タブを閉じても復元</span>
           <label class="sw"><input type="checkbox" id="sw-autosave" checked><span class="sw-track"></span></label>
         </div>
       </div>
@@ -867,6 +885,7 @@
 
     let currentLang = 'javascript';
     let currentMode = 'codeblock';
+    let autosaveEnabled = true;
     let codeBlockDoc = `api.log("hello, world!")`;
     let worldCodeDoc = `/*
 	tick onClose onPlayerJoin onPlayerLeave onPlayerJump onRespawnRequest
@@ -907,8 +926,8 @@ api.log("World code callbacks go here!")`;
       const line = state.doc.lineAt(cursor);
       const mode = document.getElementById('mode-msg');
       statusMode.textContent = `${mode.textContent}`;
-      statusPos.textContent = `Line ${line.number}, Column ${cursor - line.from + 1}`;
-      statusChars.textContent = `${state.doc.length} Character`;
+      statusPos.textContent = `行 ${line.number}, 列 ${cursor - line.from + 1}`;
+      statusChars.textContent = `${state.doc.length} 文字`;
     }
 
     const deleteBracketPair = {
@@ -977,6 +996,7 @@ api.log("World code callbacks go here!")`;
       parent: document.getElementById('editor-container'),
     });
 
+    // ローディング完了 → フェードアウト & ミニマップ初期化
     requestAnimationFrame(() => {
       const loader = document.getElementById('editor-loading');
       loader.classList.add('hidden');
@@ -987,6 +1007,9 @@ api.log("World code callbacks go here!")`;
     updateStatus(view.state);
 
 
+    // ══════════════════════════════════════════════════════════════
+    // MINIMAP
+    // ══════════════════════════════════════════════════════════════
     const MM_W = 110;   // canvas pixel width
     const MM_LINE_H = 2;     // px per line
     const MM_CHAR_W = 1.4;   // px per character
@@ -1000,11 +1023,13 @@ api.log("World code callbacks go here!")`;
       const canvas = document.getElementById('minimap-canvas');
       const toggle = document.getElementById('minimap-toggle-btn');
 
+      // スクロール連動
       view.scrollDOM.addEventListener('scroll', () => {
         syncMinimapScroll();
         updateMinimapViewport();
       });
 
+      // クリック・ドラッグでスクロール
       wrap.addEventListener('mousedown', (e) => {
         mmDragging = true;
         minimapSeek(e.offsetY, wrap, canvas);
@@ -1017,7 +1042,11 @@ api.log("World code callbacks go here!")`;
       });
       document.addEventListener('mouseup', () => { mmDragging = false; });
 
+      // 初期状態: オフ
       wrap.classList.add('mm-hidden');
+
+      // トグルはモーダル経由なのでここでは何もしない
+
 
       drawMinimap();
     }
@@ -1078,14 +1107,15 @@ api.log("World code callbacks go here!")`;
       vbox.style.height = `${Math.max(4, hFrac * totalH)}px`;
     }
 
+    // シンプルなトークンカラーリング
     function tokenizeForMinimap(text) {
       const colors = new Array(text.length).fill('#5a6380');
       const rules = [
-        [/\/\/.*$/g, '#4a6a4a'],
-        [/"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`/g, '#9a7a3a'],
+        [/\/\/.*$/g, '#4a6a4a'],  // comment
+        [/"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`/g, '#9a7a3a'],  // string
         [/\b(const|let|var|function|return|if|else|for|while|new|this|true|false|null|undefined|async|await|class|import|export|from|of|in|typeof|instanceof)\b/g, '#4466bb'],  // keyword
-        [/\b\d+\.?\d*\b/g, '#aa6633'],
-        [/\bapi\b/g, '#9966cc'],
+        [/\b\d+\.?\d*\b/g, '#aa6633'],  // number
+        [/\bapi\b/g, '#9966cc'],  // api
       ];
       for (const [re, color] of rules) {
         re.lastIndex = 0;
@@ -1133,6 +1163,10 @@ api.log("World code callbacks go here!")`;
       updateMinimapViewport();
     }
 
+
+    // ══════════════════════════════════════════════════════════════
+    // SETTINGS MODAL
+    // ══════════════════════════════════════════════════════════════
     const settingsOverlay = document.getElementById('settings-overlay');
     const swMinimap = document.getElementById('sw-minimap');
     const swAutosave = document.getElementById('sw-autosave');
@@ -1147,6 +1181,7 @@ api.log("World code callbacks go here!")`;
       if (e.target === settingsOverlay) settingsOverlay.classList.remove('open');
     });
 
+    // Minimap トグル
     swMinimap.checked = mmEnabled;
     swMinimap.addEventListener('change', () => {
       mmEnabled = swMinimap.checked;
@@ -1155,6 +1190,7 @@ api.log("World code callbacks go here!")`;
       if (mmEnabled) drawMinimap();
     });
 
+    // Auto-save トグル
     swAutosave.addEventListener('change', () => {
       autosaveEnabled = swAutosave.checked;
       if (!autosaveEnabled) {
@@ -1166,6 +1202,7 @@ api.log("World code callbacks go here!")`;
       }
     });
 
+    // Save .txt (旧 btn-submit と同機能)
     document.getElementById('btn-save-file').addEventListener('click', () => {
       const code = view.state.doc.toString();
       const blob = new Blob([code], { type: 'text/plain' });
@@ -1178,6 +1215,7 @@ api.log("World code callbacks go here!")`;
       showEditorToast('💾 Saved!');
     });
 
+    // Load .txt
     const fileInput = document.getElementById('file-input');
     document.getElementById('btn-load-file').addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', (e) => {
@@ -1541,6 +1579,7 @@ api.log("World code callbacks go here!")`;
         html += `<div class="sig-deprecated" style="white-space:normal">⚠ deprecated</div>`;
       }
 
+      // 引数を改行して表示
       if (sig.params.length === 0) {
         html +=
           `<span class="sig-method">${methodName}</span>` +
@@ -1567,6 +1606,7 @@ api.log("World code callbacks go here!")`;
           `<span class="sig-returns">${sig.returns}</span>`;
       }
 
+      // アクティブ引数の説明
       const activeParam = sig.params[paramIdx];
       if (activeParam && activeParam.desc) {
         html += `\n<span class="sig-param-hint" style="white-space:normal;display:block;margin-top:4px;">` +
