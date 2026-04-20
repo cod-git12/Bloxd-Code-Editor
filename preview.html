@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -836,7 +836,7 @@
     </div>
 
     <div class="version">
-        preview. 1.3.0
+        preview. 1.3.0-1
     </div>
 
 
@@ -887,44 +887,37 @@
 
             <button class="NewButton LimeButton" id="btn-submit">
                 <div class="ButtonTopBorder"></div>
-                <span class="ButtonBody">Submit Code</span>
+                <span class="ButtonBody" data-i18n="btn_submit">Submit Code</span>
                 <div class="ButtonBottomBorder"></div>
             </button>
 
             <button class="NewButton PurpleButton" id="btn-more">
                 <div class="ButtonTopBorder"></div>
-                <span class="ButtonBody">Show Docs</span>
+                <span class="ButtonBody" data-i18n="btn_docs">Show Docs</span>
                 <div class="ButtonBottomBorder"></div>
             </button>
 
             <button class="NewButton BlueButton" id="btn-format">
                 <div class="ButtonTopBorder"></div>
-                <span class="ButtonBody">Format Code</span>
+                <span class="ButtonBody" data-i18n="btn_format">Format Code</span>
                 <div class="ButtonBottomBorder"></div>
             </button>
 
             <button class="NewButton BlueButton" id="btn-copy">
                 <div class="ButtonTopBorder"></div>
-                <span class="ButtonBody">Copy Code</span>
+                <span class="ButtonBody" data-i18n="btn_copy">Copy Code</span>
                 <div class="ButtonBottomBorder"></div>
             </button>
 
             <button class="NewButton BlueButton" id="btn-hidetool">
                 <div class="ButtonTopBorder"></div>
-                <span class="ButtonBody">Hide Tooltips</span>
+                <span class="ButtonBody" data-i18n="btn_hide">Hide Tooltips</span>
                 <div class="ButtonBottomBorder"></div>
             </button>
-            <!--
-    <button class="NewButton RedButton" id="btn-clear">
-      <div class="ButtonTopBorder"></div>
-      <span class="ButtonBody">Clear</span>
-      <div class="ButtonBottomBorder"></div>
-    </button>
-  -->
 
             <button class="NewButton PurpleButton" id="btn-world">
                 <div class="ButtonTopBorder"></div>
-                <span class="ButtonBody">World Code</span>
+                <span class="ButtonBody" data-i18n="btn_world">World Code</span>
                 <div class="ButtonBottomBorder"></div>
             </button>
         </div>
@@ -936,13 +929,13 @@
     <div id="save-dialog-overlay">
         <div id="save-dialog">
             <header>
-                <span><i class="fa-solid fa-floppy-disk"></i> Save File</span>
+                <span><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="sd_title">Save File</span></span>
                 <span id="save-dialog-close"><i class="fa-solid fa-xmark"></i></span>
             </header>
             <div class="save-dialog-body">
-                <span class="save-dialog-label">ファイル名</span>
+                <span class="save-dialog-label" data-i18n="sd_filename">File Name</span>
                 <input type="text" id="save-filename-input" value="code" spellcheck="false">
-                <span class="save-dialog-label">拡張子</span>
+                <span class="save-dialog-label" data-i18n="sd_ext">Extension</span>
                 <select id="save-ext-select">
                     <option value=".js">JavaScript (.js)</option>
                     <option value=".ts">TypeScript (.ts)</option>
@@ -957,10 +950,9 @@
                     <option value=".txt">Plain Text (.txt)</option>
                 </select>
                 <div class="save-dialog-btns">
-                    <button class="save-dialog-btn" id="save-dialog-cancel">Cancel</button>
+                    <button class="save-dialog-btn" id="save-dialog-cancel" data-i18n="sd_cancel">Cancel</button>
                     <button class="save-dialog-btn primary" id="save-dialog-confirm"><i
-                            class="fa-solid fa-download"></i>
-                        Save</button>
+                            class="fa-solid fa-download"></i> <span data-i18n="sd_save">Save</span></button>
                 </div>
             </div>
         </div>
@@ -969,36 +961,51 @@
     <div id="settings-overlay">
         <div id="settings-modal">
             <header>
-                <span><i class="fa-solid fa-gear"></i> Settings</span>
+                <span><i class="fa-solid fa-gear"></i> <span data-i18n="settings">Settings</span></span>
                 <span id="settings-close">✕</span>
             </header>
 
             <div class="settings-section">
-                <h3>Editor</h3>
+                <h3 data-i18n="s_editor">Editor</h3>
                 <div class="settings-row">
-                    <span class="settings-label">Minimap</span>
+                    <span class="settings-label" data-i18n="s_minimap">Minimap</span>
                     <label class="sw"><input type="checkbox" id="sw-minimap"><span class="sw-track"></span></label>
                 </div>
             </div>
 
             <div class="settings-section">
-                <h3>File</h3>
+                <h3 data-i18n="s_file">File</h3>
                 <div class="settings-file-row">
-                    <button class="settings-file-btn" id="btn-save-file"><i class="fa-solid fa-floppy-disk"></i> Save
-                        File</button>
-                    <button class="settings-file-btn" id="btn-load-file"><i class="fa-solid fa-folder-open"></i> Load
-                        File</button>
+                    <button class="settings-file-btn" id="btn-save-file"><i class="fa-solid fa-floppy-disk"></i> <span
+                            data-i18n="sd_title">Save File</span></button>
+                    <button class="settings-file-btn" id="btn-load-file"><i class="fa-solid fa-folder-open"></i> <span
+                            data-i18n="s_loadfile">Load File</span></button>
                     <input type="file" id="file-input" accept=".txt,.js,.ts,.html,.css,.py,.json,.md,.sql,.cpp,.java"
                         style="display:none">
                 </div>
             </div>
 
             <div class="settings-section">
-                <h3>Auto-save</h3>
+                <h3 data-i18n="s_autosave">Auto-save</h3>
                 <div class="settings-row">
-                    <span class="settings-label" style="font-size:.78rem;color:#7a8499">Restore on Reopen</span>
+                    <span class="settings-label" style="font-size:.78rem;color:#7a8499" data-i18n="s_restore">Restore on
+                        Reopen</span>
                     <label class="sw"><input type="checkbox" id="sw-autosave" checked><span
                             class="sw-track"></span></label>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3 data-i18n="s_language">Language</h3>
+                <div class="settings-row">
+                    <select id="ui-lang-select"
+                        style="background:#0d1119;border:1px solid #394980;color:#cdd6f4;font-family:inherit;font-size:.82rem;padding:.3rem .5rem;outline:none;cursor:pointer;width:100%;">
+                        <option value="en">English</option>
+                        <option value="ja">日本語</option>
+                        <option value="fr">Français</option>
+                        <option value="ko">한국어</option>
+                        <option value="zh">中文</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -1075,6 +1082,135 @@ api.log("World code callbacks go here!")`;
         let tooltipsEnabled = true;
         let view;
 
+        const TRANSLATIONS = {
+            en: {
+                line: 'Line', col: 'Column', chars: 'Character',
+                codeblock: 'Code Block', worldcode: 'World Code',
+                btn_submit: 'Submit Code', btn_docs: 'Show Docs',
+                btn_format: 'Format Code', btn_copy: 'Copy Code',
+                btn_hide: 'Hide Tooltips', btn_show: 'Show Tooltips',
+                btn_world: 'World Code', btn_codeblock: 'Code Block',
+                settings: 'Settings',
+                s_editor: 'Editor', s_file: 'File',
+                s_autosave: 'Auto-save', s_restore: 'Restore on Reopen',
+                s_minimap: 'Minimap', s_language: 'Language',
+                s_loadfile: 'Load File',
+                sd_title: 'Save File', sd_filename: 'File Name',
+                sd_ext: 'Extension', sd_cancel: 'Cancel', sd_save: 'Save',
+                t_saved: 'Saved:', t_loaded: 'Loaded:',
+                t_formatted: '✓ Formatted!', t_copied: '✓ Copied!',
+                t_fmt_err: 'Format Error:', t_fmt_unsup: 'Not supported:',
+                t_autosave_on: 'Auto-save enabled',
+                t_autosave_off: 'Auto-save disabled',
+                t_tips_on: 'Tooltips enabled',
+                t_tips_off: 'Tooltips hidden',
+            },
+            ja: {
+                line: '行', col: '列', chars: '文字',
+                codeblock: 'コードブロック', worldcode: 'ワールドコード',
+                btn_submit: '提出', btn_docs: 'ドキュメント',
+                btn_format: 'フォーマット', btn_copy: 'コピー',
+                btn_hide: 'ツールチップを非表示', btn_show: 'ツールチップを表示',
+                btn_world: 'ワールドコード', btn_codeblock: 'コードブロック',
+                settings: '設定',
+                s_editor: 'エディター', s_file: 'ファイル',
+                s_autosave: '自動保存', s_restore: '再起動時に復元',
+                s_minimap: 'ミニマップ', s_language: '言語',
+                s_loadfile: '読み込む',
+                sd_title: '保存', sd_filename: 'ファイル名',
+                sd_ext: '拡張子', sd_cancel: 'キャンセル', sd_save: '保存',
+                t_saved: '保存しました:', t_loaded: '読み込みました:',
+                t_formatted: '✓ フォーマット完了！', t_copied: '✓ コピーしました！',
+                t_fmt_err: 'フォーマットエラー:', t_fmt_unsup: '未対応:',
+                t_autosave_on: '自動保存を有効にしました',
+                t_autosave_off: '自動保存を無効にしました',
+                t_tips_on: 'ツールチップを有効にしました',
+                t_tips_off: 'ツールチップを非表示にしました',
+            },
+            fr: {
+                line: 'Ligne', col: 'Colonne', chars: 'Caractère',
+                codeblock: 'Bloc de code', worldcode: 'Code monde',
+                btn_submit: 'Soumettre', btn_docs: 'Documentation',
+                btn_format: 'Formater', btn_copy: 'Copier',
+                btn_hide: 'Masquer les infobulles', btn_show: 'Afficher les infobulles',
+                btn_world: 'Code monde', btn_codeblock: 'Bloc de code',
+                settings: 'Paramètres',
+                s_editor: 'Éditeur', s_file: 'Fichier',
+                s_autosave: 'Sauvegarde auto', s_restore: 'Restaurer à la réouverture',
+                s_minimap: 'Minimap', s_language: 'Langue',
+                s_loadfile: 'Charger un fichier',
+                sd_title: 'Enregistrer', sd_filename: 'Nom du fichier',
+                sd_ext: 'Extension', sd_cancel: 'Annuler', sd_save: 'Enregistrer',
+                t_saved: 'Sauvegardé :', t_loaded: 'Chargé :',
+                t_formatted: '✓ Formaté !', t_copied: '✓ Copié !',
+                t_fmt_err: 'Erreur de format :', t_fmt_unsup: 'Non pris en charge :',
+                t_autosave_on: 'Sauvegarde auto activée',
+                t_autosave_off: 'Sauvegarde auto désactivée',
+                t_tips_on: 'Infobulles activées',
+                t_tips_off: 'Infobulles masquées',
+            },
+            ko: {
+                line: '줄', col: '열', chars: '문자',
+                codeblock: '코드 블록', worldcode: '월드 코드',
+                btn_submit: '코드 제출', btn_docs: '문서 보기',
+                btn_format: '코드 정리', btn_copy: '코드 복사',
+                btn_hide: '툴팁 숨기기', btn_show: '툴팁 보이기',
+                btn_world: '월드 코드', btn_codeblock: '코드 블록',
+                settings: '설정',
+                s_editor: '에디터', s_file: '파일',
+                s_autosave: '자동 저장', s_restore: '재시작 시 복원',
+                s_minimap: '미니맵', s_language: '언어',
+                s_loadfile: '파일 불러오기',
+                sd_title: '파일 저장', sd_filename: '파일 이름',
+                sd_ext: '확장자', sd_cancel: '취소', sd_save: '저장',
+                t_saved: '저장됨:', t_loaded: '불러옴:',
+                t_formatted: '✓ 정리 완료!', t_copied: '✓ 복사 완료!',
+                t_fmt_err: '포맷 오류:', t_fmt_unsup: '지원 안 됨:',
+                t_autosave_on: '자동 저장 활성화',
+                t_autosave_off: '자동 저장 비활성화',
+                t_tips_on: '툴팁 활성화',
+                t_tips_off: '툴팁 숨겨짐',
+            },
+            zh: {
+                line: '行', col: '列', chars: '字符',
+                codeblock: '代码块', worldcode: '世界代码',
+                btn_submit: '提交代码', btn_docs: '查看文档',
+                btn_format: '格式化', btn_copy: '复制代码',
+                btn_hide: '隐藏提示', btn_show: '显示提示',
+                btn_world: '世界代码', btn_codeblock: '代码块',
+                settings: '设置',
+                s_editor: '编辑器', s_file: '文件',
+                s_autosave: '自动保存', s_restore: '重新打开时恢复',
+                s_minimap: '小地图', s_language: '语言',
+                s_loadfile: '加载文件',
+                sd_title: '保存文件', sd_filename: '文件名',
+                sd_ext: '扩展名', sd_cancel: '取消', sd_save: '保存',
+                t_saved: '已保存:', t_loaded: '已加载:',
+                t_formatted: '✓ 格式化完成！', t_copied: '✓ 已复制！',
+                t_fmt_err: '格式错误:', t_fmt_unsup: '不支持:',
+                t_autosave_on: '自动保存已启用',
+                t_autosave_off: '自动保存已禁用',
+                t_tips_on: '提示已启用',
+                t_tips_off: '提示已隐藏',
+            },
+        };
+
+        let currentUILang = localStorage.getItem('bloxd_ce_uilang') || 'en';
+
+        function t(key) {
+            return (TRANSLATIONS[currentUILang] || TRANSLATIONS.en)[key] || (TRANSLATIONS.en)[key] || key;
+        }
+
+        function applyTranslations() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.textContent = t(key);
+            });
+            document.documentElement.lang = currentUILang;
+            const uiLangSel = document.getElementById('ui-lang-select');
+            if (uiLangSel) uiLangSel.value = currentUILang;
+        }
+
         const statusPos = document.getElementById('status-pos');
         const statusLang = document.getElementById('status-lang');
         const statusMode = document.getElementById('status-mode');
@@ -1084,9 +1220,9 @@ api.log("World code callbacks go here!")`;
             const cursor = state.selection.main.head;
             const line = state.doc.lineAt(cursor);
             const mode = document.getElementById('mode-msg');
-            statusMode.textContent = `${mode.textContent}`;
-            statusPos.textContent = `Line ${line.number}, Column ${cursor - line.from + 1}`;
-            statusChars.textContent = `${state.doc.length} Character`;
+            statusMode.textContent = mode.textContent.trim();
+            statusPos.textContent = `${t('line')} ${line.number}, ${t('col')} ${cursor - line.from + 1}`;
+            statusChars.textContent = `${state.doc.length} ${t('chars')}`;
         }
 
         const deleteBracketPair = {
@@ -1160,6 +1296,8 @@ api.log("World code callbacks go here!")`;
         });
 
         updateStatus(view.state);
+        applyTranslations();
+        document.getElementById('mode-msg').textContent = t('codeblock');
 
         window.addEventListener('beforeunload', () => {
             if (!autosaveEnabled) return;
@@ -1180,7 +1318,6 @@ api.log("World code callbacks go here!")`;
         function initMinimap() {
             const wrap = document.getElementById('minimap-wrap');
             const canvas = document.getElementById('minimap-canvas');
-            const toggle = document.getElementById('minimap-toggle-btn');
 
             view.scrollDOM.addEventListener('scroll', () => {
                 syncMinimapScroll();
@@ -1265,7 +1402,7 @@ api.log("World code callbacks go here!")`;
             const rules = [
                 [/\/\/.*$/g, '#4a6a4a'],
                 [/"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`(?:[^`\\]|\\.)*`/g, '#9a7a3a'],
-                [/\b(const|let|var|function|return|if|else|for|while|new|this|true|false|null|undefined|async|await|class|import|export|from|of|in|typeof|instanceof)\b/g, '#4466bb'],  // keyword
+                [/\b(const|let|var|function|return|if|else|for|while|new|this|true|false|null|undefined|async|await|class|import|export|from|of|in|typeof|instanceof)\b/g, '#4466bb'],
                 [/\b\d+\.?\d*\b/g, '#aa6633'],
                 [/\bapi\b/g, '#9966cc'],
             ];
@@ -1342,9 +1479,9 @@ api.log("World code callbacks go here!")`;
             if (!autosaveEnabled) {
                 localStorage.removeItem('bloxd_ce_codeblock');
                 localStorage.removeItem('bloxd_ce_worldcode');
-                showEditorToast('Auto-save disabled', '#e34f4f', '#fff');
+                showEditorToast(t('t_autosave_off'), '#e34f4f', '#fff');
             } else {
-                showEditorToast('Auto-save enabled');
+                showEditorToast(t('t_autosave_on'));
             }
         });
 
@@ -1401,7 +1538,7 @@ api.log("World code callbacks go here!")`;
             URL.revokeObjectURL(url);
             saveDialogOverlay.classList.remove('open');
             settingsOverlay.classList.remove('open');
-            showEditorToast('Saved: ' + name);
+            showEditorToast(t('t_saved') + ' ' + name);
         });
 
         const fileInput = document.getElementById('file-input');
@@ -1427,7 +1564,7 @@ api.log("World code callbacks go here!")`;
                     extensions: buildExtensions(currentLang),
                 }));
                 settingsOverlay.classList.remove('open');
-                showEditorToast('Loaded: ' + file.name);
+                showEditorToast(t('t_loaded') + ' ' + file.name);
             };
             reader.readAsText(file);
             e.target.value = '';
@@ -1481,7 +1618,7 @@ api.log("World code callbacks go here!")`;
             const config = prettierConfig[currentLang];
 
             if (!config) {
-                showToast(`${currentLang} は未対応です`, '#e34f4f');
+                showToast(t('t_fmt_unsup') + ' ' + currentLang, '#e34f4f');
                 return;
             }
 
@@ -1496,26 +1633,26 @@ api.log("World code callbacks go here!")`;
                 view.dispatch({
                     changes: { from: 0, to: view.state.doc.length, insert: formatted }
                 });
-                showToast('✓ Formatted!');
+                showToast(t('t_formatted'));
             } catch (e) {
-                showToast('Format Error: ' + e.message, '#e34f4f');
+                showToast(t('t_fmt_err') + ' ' + e.message, '#e34f4f');
             }
         });
 
         document.getElementById('btn-copy').addEventListener('click', () => {
-            navigator.clipboard.writeText(view.state.doc.toString()).then(() => showToast('✓ Copied!'));
+            navigator.clipboard.writeText(view.state.doc.toString()).then(() => showToast(t('t_copied')));
         });
 
         document.getElementById('btn-hidetool').addEventListener('click', (e) => {
             tooltipsEnabled = !tooltipsEnabled;
             const btnText = e.currentTarget.querySelector('.ButtonBody');
             if (tooltipsEnabled) {
-                btnText.textContent = 'Hide Tooltips';
-                showToast('Tooltips enabled');
+                btnText.textContent = t('btn_hide');
+                showToast(t('t_tips_on'));
             } else {
-                btnText.textContent = 'Show Tooltips';
+                btnText.textContent = t('btn_show');
                 sigPopup.style.display = 'none';
-                showToast('Tooltips hidden');
+                showToast(t('t_tips_off'));
             }
         });
 
@@ -1538,15 +1675,15 @@ api.log("World code callbacks go here!")`;
             const header = document.querySelector('.CodeEditMessage');
             const worldBtn = document.getElementById('btn-world').querySelector('.ButtonBody');
             if (mode === 'worldcode') {
-                header.textContent = 'World Code';
+                header.textContent = t('worldcode');
                 header.style.backgroundColor = 'var(--primary-1)';
                 header.style.color = '#fff';
-                worldBtn.textContent = 'Code Block';
+                worldBtn.textContent = t('btn_codeblock');
             } else {
-                header.textContent = 'Code Block';
+                header.textContent = t('codeblock');
                 header.style.backgroundColor = 'var(--primary-1)';
                 header.style.color = '#fff';
-                worldBtn.textContent = 'World Code';
+                worldBtn.textContent = t('btn_world');
             }
             statusMode.textContent = `${header.textContent}`;
             const doc = mode === 'worldcode' ? worldCodeDoc : codeBlockDoc;
@@ -2001,6 +2138,18 @@ api.log("World code callbacks go here!")`;
             { label: "doPeriodicSave", detail: "= () => void", info: "Called periodically to save game data." },
         ];
 
+        document.getElementById('ui-lang-select').addEventListener('change', (e) => {
+            currentUILang = e.target.value;
+            localStorage.setItem('bloxd_ce_uilang', currentUILang);
+            applyTranslations();
+            const header = document.querySelector('.CodeEditMessage');
+            header.textContent = t(currentMode === 'worldcode' ? 'worldcode' : 'codeblock');
+            const worldBtn = document.getElementById('btn-world').querySelector('.ButtonBody');
+            worldBtn.textContent = currentMode === 'worldcode' ? t('btn_codeblock') : t('btn_world');
+            const hideBtn = document.getElementById('btn-hidetool').querySelector('.ButtonBody');
+            hideBtn.textContent = tooltipsEnabled ? t('btn_hide') : t('btn_show');
+            updateStatus(view.state);
+        });
         function myCompletions(context) {
             if (!tooltipsEnabled) return null;
 
